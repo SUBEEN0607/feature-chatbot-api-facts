@@ -1,0 +1,17 @@
+.env
+.venv/
+data/raw/
+__pycache__/
+node_modules/
+*.pyc
+.DS_Store
+data/twin.db
+data/llm_cache/
+.pytest_cache/
+data/cache/
+.env.*
+!.env.example
+
+# Google Drive 시트와 폴더 아이디가 들어 있는 팀 내부 파일
+research/review/review_sheet.json
+*.log

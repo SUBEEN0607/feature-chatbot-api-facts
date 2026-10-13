@@ -1,0 +1,254 @@
+# Owner-chat eval set: questions a CEO or a store owner would type into the owner chat, with ground truth taken
+# ONLY from this repo. Run: python -m tests.chat_eval.run (see tests/chat_eval/run.py).
+#
+# Matching (tests/chat_eval/score.py): the answer and every expected string are compared with spaces and commas
+# removed, so "2,613만 원" matches "2613만원".
+#   expect     AND of OR groups: every group needs one of its strings in the answer
+#   expect_season  like expect, but the strings are built from the eval season after one played month
+#                  (last.op / last.revenue / last.covers / cash, spelled as the chat spells them)
+#   accept_season  extra alternatives for the FIRST expect group, from the season (a "한 달 매출" answer may
+#                  quote the 평소 달 or the month just played; both are true)
+#   forbid     strings that must not appear (stale numbers, annualised guesses)
+#   no_numbers the answer must contain no digits at all (off-topic traps)
+#   paths      only these chat paths (default: every path)
+#   gold       documents or source ids that hold the answer in the RAG index (retrieval hit@k); omitted when
+#              no corpus document holds the number (it exists only in the sim or hero_base.yaml)
+#
+# Ground-truth sources:
+#   SIM   sim.season.baseline_month() = web/public/data/tour.json pnl (외부 사건이 없는 평소 달, 10월, 기본 계획):
+#         revenue 26,133,792  op 948,635 (3.6%)  covers 970  ticket 27,000  cogs 8,098,022  labor 8,968,656
+#         rent 4,700,000  mgmt 3,200,000  fees 218,479
+#   TOUR  web/public/data/tour.json stops[].sensitivity (sim, 영업이익과 손님 수 변화, 평소 달 기준)
+#   HERO  research/hero_base.yaml (built from research/guesstimate.xlsx by research/build_workbook.py)
+#   DIST  data/processed/district_profile.json, data/processed/survival_wide.json (docs/DATA.md §4)
+#   PARAM sim/params.py SIM_ASSUMPTIONS
+version: 1
+questions:
+  - id: q01_revenue
+    q: 한 달 매출이 얼마나 돼요?
+    category: pnl
+    expect: [["2613만"]]
+    accept_season: [last.revenue]
+    forbid: ["2654만"]
+    truth: 평소 달 월 매출 26,133,792원 (2,613만원)
+    source: SIM revenue
+  - id: q02_profit
+    q: 한 달에 얼마 정도 남으세요?
+    category: pnl
+    expect: [["95만"]]
+    accept_season: [last.op]
+    forbid: ["122만"]
+    truth: 평소 달 영업이익 948,635원 (95만원), 대표자 인건비 300만원을 비용에 넣은 뒤
+    source: SIM op; HERO cst_owner_imputed_wage
+  - id: q03_margin
+    q: 영업이익률은 몇 퍼센트예요?
+    category: pnl
+    expect: [["3.6%", "3.63%", "3.6퍼센트"]]
+    forbid: ["4.6%"]
+    truth: 영업이익률 3.6% (948,635 / 26,133,792)
+    source: SIM op / revenue; tour.json pnl.op_margin 0.0363
+  - id: q04_ticket
+    q: 객단가는 얼마예요?
+    category: pnl
+    expect: [["27000원", "2만7천원", "2만7000원"]]
+    truth: 객단가 27,000원 (1인분 19,000 + 소주 0.9병 × 5,000 + 식사·사이드 3,500)
+    source: SIM ticket; HERO drv_ticket
+    gold: [research/sourcing_round4_v2.md, docs/RESEARCH.md, S28]
+  - id: q05_rent
+    q: 월세는 얼마 내세요?
+    category: cost
+    expect: [["470만"]]
+    truth: 월 임차료 4,700,000원 (매출의 18%)
+    source: HERO drv_rent (S52;S53;S55); SIM rent
+    gold: [research/sourcing_round2.md, docs/RESEARCH.md, S52, S53, S55, S56]
+  - id: q06_meat_cost
+    q: 고기 1인분 원가는 얼마예요?
+    category: cost
+    expect: [["4500원", "4천5백원", "4천500원"]]
+    truth: 1인분(200g) 고기 원가 4,500원
+    source: HERO cst_meat_cost_per_portion (S68;S69)
+    gold: [research/sourcing_round3.md, research/sourcing_round4_v2.md, S68, S69]
+  - id: q07_food_cost
+    q: 한 달 식재료비는 얼마나 나와요?
+    category: cost
+    expect: [["810만"]]
+    forbid: ["822만"]
+    truth: 평소 달 식재료비 8,098,022원 (810만원, 매출의 31%)
+    source: SIM cogs
+  - id: q08_labor
+    q: 인건비는 한 달에 얼마예요?
+    category: cost
+    expect: [["897만"]]
+    truth: 평소 달 인건비 8,968,656원 (897만원, 매출의 34.3%), 대표자 귀속 300만원 포함
+    source: SIM labor; HERO cst_owner_imputed_wage
+  - id: q09_meat_price
+    q: 삼겹살 1인분에 얼마 받으세요?
+    category: menu
+    expect: [["19000원", "1만9천원", "1만9000원"]]
+    truth: 삼겹살 1인분(200g) 19,000원
+    source: HERO prd_meat_price (S23;S25)
+    gold: [S23, S25, S24, S69]
+  - id: q10_soju_price
+    q: 소주 한 병 얼마예요?
+    category: menu
+    expect: [["5000원", "5천원"]]
+    truth: 소주 1병 5,000원
+    source: HERO prd_alcohol_price (S25;S26)
+    gold: [S25, S26, S27]
+  - id: q11_peak
+    q: 가장 바쁜 시간은 언제예요?
+    category: operations
+    expect: [["19시", "19~21", "19-21", "7시~9시", "7시부터", "저녁7시", "오후7시", "7~9시"]]
+    truth: 저녁 피크 19~21시 (17~21시 도착 비중 0.12/0.23/0.33/0.32, 가정), 저녁(17~24시) 매출 비중 63%
+    source: PARAM peak_hour_weights_17_21 (industry/pork_bbq.yaml game.peak_reshape); HERO reg_evening_share (S12)
+    gold: [S12, docs/RESEARCH.md]
+  - id: q12_hours
+    q: 몇 시부터 몇 시까지 영업하세요?
+    category: operations
+    expect: [["17시", "오후5시", "저녁5시", "5시부터"], ["24시", "자정", "12시", "7시간"]]
+    truth: 17시 개점, 하루 7시간 영업 (24시 마감), 월요일 휴무, 월 26일
+    source: PARAM open_clock_min 17:00, closed_weekday mon; HERO drv_open_hours 7 (S12;S35), sto_open_days 26
+    gold: [S35, S12]
+  - id: q13_staff
+    q: 직원은 몇 명이에요?
+    category: operations
+    expect: [["2명", "두명"], ["1명", "한명"]]
+    truth: 교대당 알바 2명 + 정직원 1명 (사장도 홀에 나옴)
+    source: HERO sto_parttimers 2 (S31), sto_employees 1 (S31); PARAM owner_on_floor 1
+    gold: [S31, research/sourcing_round2.md]
+  - id: q14_wage
+    q: 알바 시급은 얼마예요?
+    category: operations
+    expect: [["10320원", "1만320원"]]
+    truth: 알바 시급 10,320원 (2026 최저임금)
+    source: HERO sto_parttime_wage (S36)
+    gold: [S36, S66, research/sourcing_round2.md, research/sourcing_round4_v2.md]
+  - id: q15_tables
+    q: 테이블은 몇 개예요?
+    category: operations
+    expect: [["10개", "열개", "10테이블"]]
+    truth: 테이블 10개, 테이블당 4석, 야장 8석, 25평
+    source: HERO sto_tables (S34), sto_seats_per_table, sto_terrace, sto_area_pyeong
+    gold: [S34]
+  - id: q16_covers
+    q: 한 달에 손님이 몇 명 와요?
+    category: pnl
+    expect: [["970명"]]
+    accept_season: [last.covers]
+    truth: 평소 달 착석 손님 970명
+    source: SIM covers
+  - id: q17_competitors
+    q: 대학로에 고깃집이 몇 곳이나 있어요?
+    category: district
+    expect: [["27곳", "27개", "27군데"]]
+    truth: 대학로(혜화역) 상권 돼지고기 구이집 27곳 (소상공인 상가정보 I20107, 2026-06)
+    source: HERO reg_competitors (S20;S18); DIST trdar.3120012.sbiz_stores.I20107.stores
+    gold: [docs/RESEARCH.md, docs/DATA.md, rag/corpus/2026-09-30-seoul-public-data-pork-bbq.md, S20]
+  - id: q18_survival
+    q: 대학로 고깃집 생존율은 어때요?
+    category: district
+    expect: [["70.8%", "71%", "85.9%", "86%", "67.6%", "68%", "15.4%", "10.1%"]]
+    forbid: ["34%"]
+    truth: 고깃집(이름 기준, 종로구 전체+신촌역, 119곳) 2년 생존 85.9%, 5년 70.8%; 대학로 음식점 349곳 5년 67.6%, 24개월 내 폐업 10.1%
+    source: DIST survival_wide.pork_name_only, survival.all_uptae_primary; docs/DATA.md §4; docs/RESEARCH.md §3
+    gold: [docs/RESEARCH.md, docs/DATA.md, rag/corpus/2026-09-30-pork-bbq-success-label-baselines.md, S21]
+  - id: q19_card_fee
+    q: 카드 수수료율은 얼마예요?
+    category: payment
+    expect: [["0.95%"]]
+    truth: 카드 수수료율 0.95% (영세 우대), 카드 결제 비중 88%
+    source: HERO cst_card_fee_rate (S63;S65), cst_card_share (S65)
+    gold: [S63, S65, research/sourcing_round2.md]
+  - id: q20_biggest_cost
+    q: 제일 부담되는 비용이 뭐예요?
+    category: cost
+    expect: [["인건비"], ["897만"]]
+    truth: 인건비 897만원 (매출의 34.3%)이 가장 크고, 식재료비 810만원, 임차료 470만원 순
+    source: SIM labor, cogs, rent
+  - id: q21_profit_driver
+    q: 이익을 제일 크게 좌우하는 게 뭐예요?
+    category: drivers
+    expect: [["알바", "인건비", "인력", "교대"], ["178만"]]
+    truth: 교대당 알바 1명 증감이 영업이익 ±178만원으로 가장 큼 (원육 숙성 −91만원, 고기 1,000원 +24만원)
+    source: TOUR stops sensitivity (staff_per_shift ±1,784,328)
+  - id: q22_price_up
+    q: 고기 가격을 1,000원 올리면 어떻게 돼요?
+    category: drivers
+    expect: [["24만"], ["37명"]]
+    truth: 영업이익 +24만원 (243,292원), 손님 −37명 (가격탄력성 −0.81)
+    source: TOUR drv_ticket sensitivity meat_price up; HERO mkt_price_elasticity (S58;S59)
+    gold: [S58, S59, docs/RESEARCH.md]
+  - id: q23_soju_up
+    q: 소주 가격을 500원 올리면요?
+    category: drivers
+    expect: [["24만"], ["17명"]]
+    truth: 영업이익 −24만원 (−240,878원), 손님 −17명
+    source: TOUR prd_alcohol_price sensitivity soju_price up
+  - id: q24_hire
+    q: 알바를 한 명 더 뽑으면 이익이 어떻게 돼요?
+    category: drivers
+    expect: [["178만"]]
+    truth: 영업이익 −178만원 (−1,784,328원), 손님 변화 없음
+    source: TOUR drv_labor_cost sensitivity staff_per_shift up
+  - id: q25_party
+    q: 손님들은 보통 몇 명이서 와요?
+    category: customers
+    expect: [["2.8명"]]
+    truth: 한 팀 평균 2.8명
+    source: HERO mkt_party_size (S72;S12)
+    gold: [S72, S12]
+  - id: q26_twenties
+    q: 20대 손님 비중은 얼마나 돼요?
+    category: customers
+    expect: [["28%"]]
+    truth: 상권 한식 카드매출의 20대 비중 28%
+    source: HERO reg_age_mix (S12); docs/RESEARCH.md §2
+    gold: [docs/RESEARCH.md, S12]
+  - id: q27_last_month
+    paths: [persona]          # /chat (v1) has no season
+    q: 지난달 장사는 어땠어요?
+    category: season
+    expect_season: [[last.op]]
+    truth: 방금 끝난 달의 영업이익 (eval season, seed 7, 기본 계획 한 달)
+    source: season state (POST /season/{id}/play result draw.kpis.op)
+  - id: q28_cash
+    paths: [persona]          # /chat (v1) has no season
+    q: 운영자금은 얼마나 남았어요?
+    category: season
+    expect_season: [[cash]]
+    truth: 방금 끝난 달 뒤의 운영자금 (state.cash)
+    source: season state
+  - id: q29_trap_weather
+    q: 내일 서울 날씨 어때요?
+    category: trap
+    expect: [["모르", "모름", "없어", "없습니다", "어렵", "범위", "드릴수없", "알수없"]]
+    no_numbers: true
+    truth: 자료 밖 질문, 모른다고 답해야 함
+    source: none
+  - id: q30_trap_name
+    q: 사장님 가게 이름이 뭐예요?
+    category: trap
+    expect: [["가상", "실제상호", "합성", "실제가게", "밝히", "모르"]]
+    truth: 가상의 composite 매장, 실제 상호 없음
+    source: agents/chat.py PERSONAS owner; research/hero_base.yaml _meta.store
+  - id: q31_trap_annual
+    q: 작년 연간 순이익은 얼마였어요?
+    category: trap
+    expect: [["모르", "자료가없", "자료는없", "기록이없", "기록은없", "숫자가없", "숫자는없", "어렵", "알수없", "드릴수없"]]
+    forbid: ["1138만", "1100만", "1,138", "1억"]
+    truth: 연간 실적 자료 없음 (평소 달 모델과 시즌 기록만 있음); 95만원 × 12 같은 계산은 지어낸 숫자
+    source: none
+  - id: q32_delivery
+    q: 배달도 하세요?
+    category: trap
+    expect: [["안해", "안합", "하지않", "배달은없", "배달없", "안하", "않아"]]
+    truth: 배달 안 함 (기술 도입 전 매장, 팀 결정 D0930)
+    source: HERO mkt_delivery N (D0930); docs/RESEARCH.md §1
+    gold: [docs/RESEARCH.md, D0930]
+  - id: q33_trap_crypto
+    q: 비트코인 지금 사도 될까요?
+    category: trap
+    expect: [["모르", "모름", "없어", "없습니다", "어렵", "범위", "드릴수없", "알수없", "관련없"]]
+    no_numbers: true
+    truth: 자료 밖 질문
+    source: none

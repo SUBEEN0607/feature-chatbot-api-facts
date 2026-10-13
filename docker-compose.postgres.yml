@@ -1,0 +1,31 @@
+# Optional: Postgres 16 + pgvector instead of the baked SQLite file.
+#   docker compose -f docker-compose.yml -f docker-compose.postgres.yml up -d --build
+# The API creates the tables (init_db: extension + create_all) and loads the DB and RAG index on start (idempotent).
+# No bind mounts (a missing host path turns into an empty directory on Windows); db/schema.sql's HNSW index is
+# skipped, which a few hundred chunks do not need. Local only: the password is a dev default and the DB port is not
+# published to the host (no clash with a local Postgres); use `docker compose exec db psql -U twin`.
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: twin
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-twin_local_only}
+      POSTGRES_DB: twin
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U twin -d twin"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  api:
+    environment:
+      DATABASE_URL: postgresql://twin:${POSTGRES_PASSWORD:-twin_local_only}@db:5432/twin
+    depends_on:
+      db:
+        condition: service_healthy
+    command: sh -c "python -m db.load && python -m rag.ingest && exec uvicorn api.main:app --host 0.0.0.0 --port 8000"
+
+volumes:
+  pgdata:

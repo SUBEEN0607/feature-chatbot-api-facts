@@ -1,0 +1,13 @@
+# API image build context (repo root). The web image has its own web/.dockerignore.
+.git
+.venv
+.env
+.env.*
+.pytest_cache
+**/__pycache__
+**/node_modules
+web/dist
+data/raw
+data/twin.db
+data/llm_cache
+data/cache

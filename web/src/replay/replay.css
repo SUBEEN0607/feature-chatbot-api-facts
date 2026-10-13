@@ -1,0 +1,110 @@
+.rp {
+  --ink: oklch(0.24 0.012 260);
+  --ink-2: oklch(0.46 0.01 260);
+  --panel: oklch(0.99 0.002 250 / 0.94);
+  --line: oklch(0.88 0.005 250);
+  --soju: oklch(0.5 0.11 160);
+  --ember: oklch(0.6 0.17 38);
+  --shadow: 0 0 0 1px oklch(0 0 0 / 0.06), 0 1px 2px -1px oklch(0 0 0 / 0.08), 0 4px 12px oklch(0 0 0 / 0.06);
+  position: fixed;
+  inset: 0;
+  font-family: "Pretendard Variable", Pretendard, system-ui, sans-serif;
+  color: var(--ink);
+  background: #eceeef;
+  -webkit-font-smoothing: antialiased;
+}
+.rp-stage { position: absolute; inset: 0; }
+.rp-stage canvas { display: block; }
+.rp-loading { position: absolute; inset: 0; display: grid; place-items: center; color: var(--ink-2); }
+.rp-hint {
+  position: absolute; left: 50%; bottom: 104px; translate: -50% 0; margin: 0;
+  padding: 10px 14px; border-radius: 10px; background: var(--panel); box-shadow: var(--shadow);
+  font-size: 14px; pointer-events: none; max-inline-size: min(90vw, 420px); text-align: center;
+}
+
+.rp-top {
+  position: absolute; inset-inline: 16px; inset-block-start: 16px;
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; pointer-events: none;
+}
+.rp-top > * { pointer-events: auto; }
+.rp-title { background: var(--panel); box-shadow: var(--shadow); border-radius: 14px; padding: 14px 18px; max-inline-size: 440px; }
+.rp-title h1 { margin: 2px 0 4px; font-size: 22px; line-height: 1.15; font-weight: 700; letter-spacing: -0.01em; }
+.rp-title p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--ink-2); }
+.rp-back { font-size: 13px; color: var(--ink-2); text-decoration: none; }
+.rp-back:hover { color: var(--ink); text-decoration: underline; }
+.rp-controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+
+.rp-field { display: flex; flex-direction: column; gap: 3px; background: var(--panel); box-shadow: var(--shadow); border-radius: 12px; padding: 6px 10px; }
+.rp-field span { font-size: 12px; color: var(--ink-2); }
+.rp-field select { font: inherit; font-size: 14px; font-weight: 600; border: 0; background: transparent; color: var(--ink); padding: 2px 0; }
+
+.rp-seg { display: inline-flex; background: var(--panel); box-shadow: var(--shadow); border-radius: 12px; padding: 4px; gap: 2px; }
+.rp-seg button {
+  font: inherit; font-size: 14px; font-weight: 500; border: 0; background: transparent; color: var(--ink-2);
+  padding: 7px 12px; border-radius: 8px; cursor: pointer; min-block-size: 32px;
+  transition-property: background-color, color, scale; transition-duration: 150ms; transition-timing-function: ease-out;
+}
+.rp-seg button[aria-pressed="true"] { background: var(--ink); color: white; }
+.rp-seg button:active, .rp-play:active { scale: 0.96; }
+.rp button:focus-visible, .rp select:focus-visible, .rp input:focus-visible { outline: 2px solid var(--soju); outline-offset: 2px; }
+
+.rp-hud {
+  position: absolute; inset-inline-end: 16px; inset-block-start: 96px; inline-size: 260px;
+  background: var(--panel); box-shadow: var(--shadow); border-radius: 14px; padding: 14px 16px 12px;
+}
+.rp-clock { font-size: 40px; font-weight: 700; line-height: 1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.rp-hud dl { margin: 12px 0 0; display: grid; gap: 7px; }
+.rp-hud dl div { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.rp-hud dt { font-size: 13px; color: var(--ink-2); }
+.rp-hud dt .s { display: none; }
+.rp-hud dd { margin: 0; font-size: 16px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.rp-legend { list-style: none; margin: 14px 0 0; padding: 12px 0 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr; gap: 6px 10px; font-size: 12.5px; }
+.rp-legend li { display: flex; align-items: center; gap: 6px; }
+.rp-legend i { inline-size: 10px; block-size: 10px; border-radius: 50%; flex: none; }
+.rp-note { margin: 10px 0 0; font-size: 11.5px; line-height: 1.45; color: var(--ink-2); }
+
+.rp-transport {
+  position: absolute; inset-inline: 16px; inset-block-end: 16px;
+  display: flex; align-items: center; gap: 14px;
+  background: var(--panel); box-shadow: var(--shadow); border-radius: 16px; padding: 10px 18px 10px 10px;
+}
+.rp-play {
+  inline-size: 44px; block-size: 44px; border-radius: 12px; border: 0; background: var(--ink); color: white; cursor: pointer;
+  display: grid; place-items: center; flex: none; transition-property: scale; transition-duration: 150ms; transition-timing-function: ease-out;
+}
+.rp-play svg { inline-size: 16px; block-size: 16px; fill: currentColor; }
+.rp-speed { box-shadow: none; background: oklch(0.95 0.003 250); }
+.rp-scrub { position: relative; flex: 1; padding-block-end: 18px; }
+.rp-scrub input { inline-size: 100%; accent-color: var(--ember); margin: 0; block-size: 24px; }
+.rp-ticks { position: absolute; inset-inline: 8px; inset-block-end: 0; block-size: 16px; }
+.rp-ticks span { position: absolute; translate: -50% 0; white-space: nowrap; font-size: 11.5px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+@media (max-width: 760px) {
+  .rp-top { inset-inline: 10px; inset-block-start: 10px; flex-direction: column; gap: 8px; }
+  .rp-title { padding: 10px 12px; }
+  .rp-title h1 { font-size: 17px; }
+  .rp-title p { display: none; }
+  .rp-controls { justify-content: flex-start; gap: 6px; }
+  .rp-field { padding: 4px 8px; }
+  .rp-field span { display: none; }
+  .rp-field select { font-size: 13px; }
+  .rp-seg button { padding: 6px 9px; font-size: 13px; }
+  .rp-hud {
+    inset-inline: 10px; inset-block-start: auto; inset-block-end: 118px; inline-size: auto; padding: 10px 12px;
+    display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: center;
+  }
+  .rp-clock { font-size: 26px; }
+  .rp-hud dl { margin: 0; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+  .rp-hud dl div { flex-direction: column; align-items: flex-start; gap: 1px; }
+  .rp-hud dl div:nth-child(5) { display: none; }
+  .rp-hud dt { font-size: 11px; line-height: 1.25; }
+  .rp-hud dt .l { display: none; }
+  .rp-hud dt .s { display: inline; }
+  .rp-hud dd { font-size: 13.5px; white-space: nowrap; }
+  .rp-legend, .rp-note { display: none; }
+  .rp-hint { bottom: 200px; font-size: 13px; }
+  .rp-transport { inset-inline: 10px; inset-block-end: 10px; flex-wrap: wrap; padding: 8px 12px 8px 8px; gap: 8px 10px; }
+  .rp-scrub { flex-basis: 100%; order: 3; }
+  .rp-ticks span { font-size: 10.5px; }
+  .rp-ticks span:nth-child(even) { display: none; }
+}

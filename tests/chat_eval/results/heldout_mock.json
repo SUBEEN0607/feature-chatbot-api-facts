@@ -1,0 +1,318 @@
+{
+ "backend": "mock",
+ "season_id": "cbf91920b15b",
+ "season_values": {
+  "last.op": [
+   "414만"
+  ],
+  "last.revenue": [
+   "2825만"
+  ],
+  "last.covers": [
+   "1071명"
+  ],
+  "cash": [
+   "2414만"
+  ]
+ },
+ "rows": [
+  {
+   "id": "h01_revenue_casual",
+   "path": "persona",
+   "category": "pnl",
+   "q": "사장님 한달 매출 얼마나 나와여?",
+   "answer": "외부 사건이 없는 평소 달이면 한 달 매출은 2,613만원, 영업이익은 95만원 (영업이익률 3.6%, 사장 몫 인건비 300만원을 비용에 넣은 뒤) 정도예요 [평소 달]. 이번 시즌 10월 영업이익은 414만원이에요 [시즌 기록].",
+   "backend": "mock",
+   "cached": false,
+   "status": 200,
+   "ms": 77,
+   "pass": true,
+   "why": [],
+   "retrieval_hit": null,
+   "retrieved": [
+    "docs/RESEARCH.md",
+    "S35",
+    "research/hero_base.yaml#sto_open_days",
+    "docs/RESEARCH.md",
+    "docs/RESEARCH.md"
+   ]
+  },
+  {
+   "id": "h02_net_casual",
+   "path": "persona",
+   "category": "pnl",
+   "q": "솔직히 순수익 얼마 떨어져요?",
+   "answer": "외부 사건이 없는 평소 달이면 한 달 매출은 2,613만원, 영업이익은 95만원 (영업이익률 3.6%, 사장 몫 인건비 300만원을 비용에 넣은 뒤) 정도예요 [평소 달]. 이번 시즌 10월 영업이익은 414만원이에요 [시즌 기록].",
+   "backend": "mock",
+   "cached": false,
+   "status": 200,
+   "ms": 56,
+   "pass": true,
+   "why": [],
+   "retrieval_hit": null,
+   "retrieved": [
+    "docs/RESEARCH.md",
+    "docs/RESEARCH.md",
+    "research/sourcing_round2.md",
+    "docs/RESEARCH.md",
+    "rag/corpus/2026-09-30-seoul-public-data-pork-bbq.md"
+   ]
+  },
+  {
+   "id": "h03_spend_per_person",
+   "path": "persona",
+   "category": "pnl",
+   "q": "손님 한명이 평균 얼마 쓰고 가요",
+   "answer": "손님 한 분이 한 번에 쓰시는 객단가는 27,000원이에요 [평소 달]. 고기 1인분 19,000원 + 소주 0.9병 × 5,000원 + 식사·사이드 3,500원으로 이루어져요.",
+   "backend": "mock",
+   "cached": false,
+   "status": 200,
+   "ms": 59,
+   "pass": true,
+   "why": [],
+   "retrieval_hit": null,
+   "retrieved": [
+    "S31",
+    "research/hero_base.yaml#seg_twenties_party_factor",
+    "S23",
+    "S30",
+    "docs/RESEARCH.md"
+   ]
+  },
+  {
+   "id": "h04_multi_cost_price",
+   "path": "persona",
+   "category": "multi",
+   "q": "고기 원가랑 판매가 각각 얼마에요?",
+   "answer": "고기 1인분 원가가 4,500원이고 판매가는 19,000원이에요 [S68] [S23]. 도매가가 오르면 남는 몫이 먼저 줄어요.",
+   "backend": "mock",
+   "cached": false,
+   "status": 200,
+   "ms": 61,
+   "pass": true,
+   "why": [],
+   "retrieval_hit": null,
+   "retrieved": [
+    "S68",
+    "S23",
+    "research/hero_base.yaml#prd_meat_origin",
+    "docs/RESEARCH.md",
+    "research/hero_base.yaml#cst_banchan_cost_per_cover"
+   ]
+  },
+  {
+   "id": "h05_multi_staff_wage",
+   "path": "persona",
+   "category": "multi",
+   "q": "알바 몇명 쓰고 시급은 얼마 줘요?",
+   "answer": "직원은 교대당 알바 2명 (하루 5시간), 정직원 1명 (월급 240만원), 홀에서 같이 일하는 사장 1명이에요 [S31]. 알바 시급은 10,320원이에요 [S36].",
+   "backend": "mock",
+   "cached": false,
+   "status": 200,
+   "ms": 64,
+   "pass": true,
+   "why": [],
+   "retrieval_hit": null,
+   "retrieved": [
+    "S36",
+    "docs/RESEARCH.md",
+    "rag/corpus/2026-09-30-pork-bbq-success-label-baselines.md",
+    "docs/RESEARCH.md",
+    "docs/RESEARCH.md"
+   ]
+  },
+  {
+   "id": "h06_nodata_premium",
+   "path": "persona",
+   "category": "nodata",
+   "q": "권리금은 얼마 주고 들어오셨어요?",
+   "answer": "그건 제가 가진 가게 자료에는 없는 내용이라 모르겠어요. 매출, 비용, 손님, 가격처럼 가게 이야기라면 숫자로 말씀드릴 수 있어요.",
+   "backend": "mock",
+   "cached": false,
+   "status": 200,
+   "ms": 61,
+   "pass": true,
+   "why": [],
+   "retrieval_hit": null,
+   "retrieved": [
+    "docs/RESEARCH.md",
+    "docs/RESEARCH.md",
+    "docs/DATA.md",
+    "S57",
+    "S55"
+   ]
+  },
+  {
+   "id": "h07_nodata_followers",
+   "path": "persona",
+   "category": "nodata",
+   "q": "인스타 팔로워 몇 명이에요?",
+   "answer": "그건 제가 가진 가게 자료에는 없는 내용이라 모르겠어요. 매출, 비용, 손님, 가격처럼 가게 이야기라면 숫자로 말씀드릴 수 있어요.",
+   "backend": "mock",
+   "cached": false,
+   "status": 200,
+   "ms": 60,
+   "pass": true,
+   "why": [],
+   "retrieval_hit": null,
+   "retrieved": [
+    "docs/RESEARCH.md",
+    "research/sourcing_round4_v2.md",
+    "research/hero_base.yaml#mkt_celebrity_visits",
+    "docs/RESEARCH.md",
+    "research/sourcing_round4_v2.md"
+   ]
+  },
+  {
+   "id": "h08_whatif_banchan",
+   "path": "persona",
+   "category": "whatif",
+   "q": "반찬 하나 줄이면 돈 더 남아요?",
+   "answer": "외부 사건이 없는 평소 달이면 한 달 매출은 2,613만원, 영업이익은 95만원 (영업이익률 3.6%, 사장 몫 인건비 300만원을 비용에 넣은 뒤) 정도예요 [평소 달]. 이번 시즌 10월 영업이익은 414만원이에요 [시즌 기록].",
+   "backend": "mock",
+   "cached": false,
+   "status": 200,
+   "ms": 57,
+   "pass": false,
+   "why": [
+    "missing one of ['23만']"
+   ],
+   "retrieval_hit": null,
+   "retrieved": [
+    "research/sourcing_round4_v2.md",
+    "research/sourcing_round4_v2.md",
+    "docs/RESEARCH.md",
+    "research/sourcing_round3.md",
+    "research/sourcing_round2.md"
+   ]
+  },
+  {
+   "id": "h09_whatif_close_late",
+   "path": "persona",
+   "category": "whatif",
+   "q": "문 한시간 더 늦게 닫으면 어때요",
+   "answer": "테이블 10개에 삼겹살 1인분 19,000원, 소주 한 병 5,000원을 받고 있어요 [S34] [S23] [S25]. 평소 달이면 한 달에 95만원 정도 남아요 [평소 달]. 10월은 414만원 남았어요. 운영자금은 2,414만원 남아 있어요. 평점은 4.03이에요. 대학로 공연·축제 주간, 알바 갑작스런 퇴사 때문에 신경이 많이 쓰였어요.",
+   "backend": "mock",
+   "cached": false,
+   "status": 200,
+   "ms": 60,
+   "pass": false,
+   "why": [
+    "missing one of ['29만']",
+    "missing one of ['34명']"
+   ],
+   "retrieval_hit": null,
+   "retrieved": [
+    "docs/RESEARCH.md",
+    "docs/RESEARCH.md",
+    "rag/corpus/2026-09-30-pork-bbq-success-label-baselines.md",
+    "research/sourcing_round4_v2.md",
+    "research/sourcing_round4_v2.md"
+   ]
+  },
+  {
+   "id": "h10_competition",
+   "path": "persona",
+   "category": "district",
+   "q": "여기 근처 삼겹살집 경쟁 심해요? 몇 군데나 돼요",
+   "answer": "대학로(혜화역) 상권에만 돼지고기 구이집이 27곳 있어요 [S20]. 그래서 저녁 손님을 서로 나눠 가져요.",
+   "backend": "mock",
+   "cached": false,
+   "status": 200,
+   "ms": 68,
+   "pass": true,
+   "why": [],
+   "retrieval_hit": null,
+   "retrieved": [
+    "S34",
+    "research/sourcing_round2.md",
+    "rag/corpus/2026-09-30-pork-bbq-success-label-baselines.md",
+    "docs/RESEARCH.md",
+    "S35"
+   ]
+  },
+  {
+   "id": "h11_rush_hour",
+   "path": "persona",
+   "category": "operations",
+   "q": "제일 손님 몰리는 때가 몇시쯤?",
+   "answer": "상권 한식 매출의 28%가 20대에서 나오고 [S12], 직장인 회식과 동네 가족 손님이 나머지를 채워요. 한 팀은 평균 2.8명이에요 [S72].",
+   "backend": "mock",
+   "cached": false,
+   "status": 200,
+   "ms": 63,
+   "pass": false,
+   "why": [
+    "missing one of ['19시', '19~21', '19-21', '7시~9시', '7시부터', '저녁7시', '오후7시', '7~9시']"
+   ],
+   "retrieval_hit": null,
+   "retrieved": [
+    "docs/RESEARCH.md",
+    "research/hero_base.yaml#seg_twenties_early_mult",
+    "research/hero_base.yaml#seg_twenties_late_mult",
+    "S12",
+    "research/hero_base.yaml#seg_office_early_mult"
+   ]
+  },
+  {
+   "id": "h12_closure_rate",
+   "path": "persona",
+   "category": "district",
+   "q": "폐업하는 가게 많아요? 2년안에 문닫는 비율이요",
+   "answer": "고깃집 생존율 (종로구 전체와 신촌역 상권, 2015년 이후 문 연 고깃집 119곳, 이름 기준)는 2년 85.9%, 3년 79.4%, 5년 70.8%, 24개월 안에 폐업 15.4%예요 [S21]. 대학로 음식점 전체 생존율 (2015년 이후 인허가 349곳)는 5년 67.6%, 24개월 안에 폐업 10.1%예요 [S21]. 대학로에만 돼지고기 구이집이 27곳 있어서 버티는 게 쉽지 않아요 [S20].",
+   "backend": "mock",
+   "cached": false,
+   "status": 200,
+   "ms": 75,
+   "pass": true,
+   "why": [],
+   "retrieval_hit": null,
+   "retrieved": [
+    "rag/corpus/2026-09-30-pork-bbq-success-label-baselines.md",
+    "docs/RESEARCH.md",
+    "S40",
+    "rag/corpus/2026-09-30-pork-bbq-success-label-baselines.md",
+    "research/sourcing_round4_v2.md"
+   ]
+  }
+ ],
+ "summary": {
+  "persona": {
+   "n": 12,
+   "pass": 9,
+   "model_n": 0,
+   "model_pass": 0,
+   "fallback": 0,
+   "errors": 0,
+   "ret_n": 0,
+   "ret_hit": 0,
+   "by_category": {
+    "pnl": [
+     3,
+     3
+    ],
+    "multi": [
+     2,
+     2
+    ],
+    "nodata": [
+     2,
+     2
+    ],
+    "whatif": [
+     0,
+     2
+    ],
+    "district": [
+     2,
+     2
+    ],
+    "operations": [
+     0,
+     1
+    ]
+   },
+   "ms": []
+  }
+ }
+}

@@ -1,0 +1,41 @@
+/* Labels drawn over the 3D store: speech bubbles, payments, walk-aways. */
+.s3-float {
+  display: block; white-space: nowrap; font: 600 13px/1.2 "Pretendard Variable", Pretendard, system-ui, sans-serif;
+  padding: 5px 9px; border-radius: 10px; pointer-events: none; font-variant-numeric: tabular-nums;
+}
+.s3-bubble {
+  position: relative; background: oklch(0.995 0.003 85); color: oklch(0.25 0.02 40);
+  box-shadow: 0 0 0 1px oklch(0 0 0 / 0.1), 0 2px 6px oklch(0 0 0 / 0.18);
+}
+.s3-bubble::after {
+  content: ""; position: absolute; inset-block-end: -6px; inset-inline-start: 50%; translate: -50% 0;
+  border: 6px solid transparent; border-block-end: 0; border-block-start-color: oklch(0.995 0.003 85);
+}
+.s3-pay { background: oklch(0.42 0.1 160); color: white; animation: s3-rise 2.4s ease-out forwards; }
+.s3-balk { background: oklch(0.55 0.16 35); color: white; animation: s3-rise 2s ease-out forwards; }
+@keyframes s3-rise { from { translate: 0 6px; opacity: 0; } 15% { opacity: 1; } to { translate: 0 -26px; opacity: 0.85; } }
+@media (prefers-reduced-motion: reduce) { .s3-pay, .s3-balk { animation: none; } }
+
+.s3-card { display: grid; gap: 3px; min-inline-size: 170px; padding: 9px 12px; border-radius: 12px; background: oklch(0.995 0.002 240);
+  color: oklch(0.24 0.016 255); box-shadow: 0 0 0 1px oklch(0 0 0 / 0.08), 0 6px 18px oklch(0 0 0 / 0.18); font: 500 12.5px/1.45 "Pretendard Variable", Pretendard, system-ui, sans-serif; font-variant-numeric: tabular-nums; }
+.s3-card b { font-weight: 750; }
+.s3-card i { display: inline-block; inline-size: 8px; block-size: 8px; border-radius: 50%; margin-inline-end: 6px; }
+.s3-card .why { color: oklch(0.42 0.014 255); }
+.s3-card .hint { color: oklch(0.54 0.012 255); font-size: 11px; }
+.s3-ping { display: block; white-space: nowrap; padding: 5px 10px; border-radius: 99px; background: oklch(0.42 0.12 255); color: white;
+  font: 700 13px/1.2 "Pretendard Variable", Pretendard, system-ui, sans-serif; box-shadow: 0 4px 14px oklch(0 0 0 / 0.25); animation: s3-ping 2.6s ease-out forwards; }
+@keyframes s3-ping { 0% { opacity: 0; translate: 0 8px; } 10% { opacity: 1; translate: 0 0; } 80% { opacity: 1; } 100% { opacity: 0; translate: 0 -10px; } }
+@media (prefers-reduced-motion: reduce) { .s3-ping { animation: none; } }
+.s3-tag { display: block; white-space: nowrap; padding: 4px 9px; border-radius: 99px; background: oklch(0.42 0.12 255); color: white;
+  font: 700 12.5px/1.2 "Pretendard Variable", Pretendard, system-ui, sans-serif; box-shadow: 0 0 0 2px white, 0 4px 14px oklch(0 0 0 / 0.25); }
+.s3-choice { background: oklch(0.42 0.1 160); }
+/* welcome tour callout: a white label on a leader line at the object (UI-SPEC world callout) */
+.s3-callout { position: relative; display: block; inline-size: 0; block-size: 0; pointer-events: none; animation: s3-callout-in 240ms ease-out both; }
+.s3-callout i { position: absolute; inset-inline-start: -1px; inset-block-end: 0; inline-size: 2px; block-size: 40px; background: white; box-shadow: 0 0 0 1px oklch(0 0 0 / 0.12); }
+.s3-callout b { position: absolute; inset-block-end: 40px; inset-inline-start: 0; translate: -50% 0; white-space: nowrap; padding: 7px 11px; border-radius: 8px;
+  background: white; color: oklch(0.24 0.016 255); font: 650 13.5px/1.2 "SUIT Variable", SUIT, "Pretendard Variable", Pretendard, system-ui, sans-serif;
+  box-shadow: 0 0 0 1px oklch(0 0 0 / 0.08), 0 6px 18px oklch(0 0 0 / 0.25); font-variant-numeric: tabular-nums; }
+.s3-callout.side i { inset-block: -1px auto; inset-inline-start: 0; inline-size: 36px; block-size: 2px; }
+.s3-callout.side b { inset-block: auto; inset-block-start: 0; inset-inline-start: 36px; translate: 0 -50%; }
+@keyframes s3-callout-in { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .s3-callout { animation: none; } }

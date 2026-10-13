@@ -1,0 +1,825 @@
+{
+ "version": 1,
+ "month": 10,
+ "month_ko": "10월",
+ "baseline_ko": "외부 사건이 없는 평소 달",
+ "events": [],
+ "plan": {
+  "meat_price": 19000,
+  "soju_price": 5000,
+  "meat_grade": "domestic",
+  "menu_extras": [],
+  "banchan": 5,
+  "staff_grilling": false,
+  "staff_per_shift": 2,
+  "close_hour": 24,
+  "lunch": false,
+  "terrace": true,
+  "marketing_budget": 0,
+  "review_event": false,
+  "group_reservations": false,
+  "hygiene": "normal"
+ },
+ "source": "sim.season.preview (default plan, events=[]) + ontology/criteria.csv, edges.csv + research/hero_base.yaml",
+ "pnl": {
+  "revenue": 26133792,
+  "cost": 25185157,
+  "op": 948635,
+  "op_margin": 0.0363,
+  "lines": {
+   "cogs": 8098022,
+   "labor": 8968656,
+   "rent": 4700000,
+   "mgmt": 3200000,
+   "fees": 218479
+  },
+  "lines_ko": {
+   "cogs": "식재료비",
+   "labor": "인건비",
+   "rent": "임차료",
+   "mgmt": "관리비",
+   "fees": "수수료"
+  }
+ },
+ "review": {
+  "reviewed": 0,
+  "total": 82
+ },
+ "stops": [
+  {
+   "order": 1,
+   "anchor": "sign",
+   "criterion_id": "drv_rent",
+   "title_ko": "임차료",
+   "side": "cost",
+   "value": 4700000,
+   "unit": "₩/월",
+   "display_ko": "470만원",
+   "share_of_revenue": 0.1798437823336162,
+   "formula_ko": "㎡당 월 임대료 × 면적",
+   "params": [
+    {
+     "criterion_id": "sto_area_pyeong",
+     "name_ko": "가게 평수",
+     "value": 25,
+     "unit": "평",
+     "display_ko": "25평",
+     "confidence": "L",
+     "source_ids": [
+      "S34",
+      "S21"
+     ],
+     "is_lever": false,
+     "lever": null,
+     "tag_ko": "근거 S34, S21",
+     "reviewed": false
+    }
+   ],
+   "sensitivity": [],
+   "question_ko": "간판부터 볼게요. 이 자리 월세가 한 달에 얼마쯤일까요?",
+   "buckets": [
+    {
+     "label_ko": "300만원 아래",
+     "min": null,
+     "max": 3000000
+    },
+    {
+     "label_ko": "300만~400만원",
+     "min": 3000000,
+     "max": 4000000
+    },
+    {
+     "label_ko": "400만~500만원",
+     "min": 4000000,
+     "max": 5000000
+    },
+    {
+     "label_ko": "500만원 넘게",
+     "min": 5000000,
+     "max": null
+    }
+   ],
+   "answer_bucket": 2,
+   "reveal_ko": "임차료는 한 달 470만원, 매출의 18%예요",
+   "source_ids": [
+    "S52",
+    "S53",
+    "S55"
+   ],
+   "confidence": "M",
+   "preliminary": true
+  },
+  {
+   "order": 2,
+   "anchor": "menu_board",
+   "criterion_id": "drv_ticket",
+   "title_ko": "객단가",
+   "side": "revenue",
+   "value": 27000,
+   "unit": "₩/인",
+   "display_ko": "27,000원",
+   "share_of_revenue": null,
+   "formula_ko": "인분/인 × 고기가 + 병/인 × 주류가 + 식사·사이드",
+   "params": [
+    {
+     "criterion_id": "prd_meat_price",
+     "name_ko": "고기 판매가",
+     "value": 19000,
+     "unit": "₩/인분",
+     "display_ko": "19,000원",
+     "confidence": "M",
+     "source_ids": [
+      "S23",
+      "S25"
+     ],
+     "is_lever": true,
+     "lever": "meat_price",
+     "tag_ko": "레버",
+     "reviewed": false
+    },
+    {
+     "criterion_id": "prd_portions_per_cover",
+     "name_ko": "1인당 고기 인분",
+     "value": 1.0,
+     "unit": "인분/인",
+     "display_ko": "1인분",
+     "confidence": "L",
+     "source_ids": [
+      "S28",
+      "S74"
+     ],
+     "is_lever": false,
+     "lever": null,
+     "tag_ko": "근거 S28, S74",
+     "reviewed": false
+    },
+    {
+     "criterion_id": "prd_alcohol_price",
+     "name_ko": "주류 판매가 (소주)",
+     "value": 5000,
+     "unit": "₩/병",
+     "display_ko": "5,000원",
+     "confidence": "M",
+     "source_ids": [
+      "S25",
+      "S26"
+     ],
+     "is_lever": true,
+     "lever": "soju_price",
+     "tag_ko": "레버",
+     "reviewed": false
+    },
+    {
+     "criterion_id": "prd_alcohol_per_cover",
+     "name_ko": "1인당 주류 병수",
+     "value": 0.9,
+     "unit": "병/인",
+     "display_ko": "0.9병",
+     "confidence": "L",
+     "source_ids": [
+      "S62"
+     ],
+     "is_lever": false,
+     "lever": null,
+     "tag_ko": "근거 S62",
+     "reviewed": false
+    },
+    {
+     "criterion_id": "prd_side_spend_per_cover",
+     "name_ko": "1인당 식사·사이드 매출",
+     "value": 3500,
+     "unit": "₩/인",
+     "display_ko": "3,500원",
+     "confidence": "L",
+     "source_ids": [
+      "S30"
+     ],
+     "is_lever": false,
+     "lever": null,
+     "tag_ko": "근거 S30",
+     "reviewed": false
+    }
+   ],
+   "sensitivity": [
+    {
+     "lever": "meat_price",
+     "lever_ko": "삼겹살 1인분",
+     "step_ko": "1,000원",
+     "up_ko": "1,000원 올리면",
+     "down_ko": "1,000원 내리면",
+     "up": {
+      "op": 243292,
+      "covers": -37
+     },
+     "down": {
+      "op": -268191,
+      "covers": 40
+     }
+    }
+   ],
+   "question_ko": "메뉴판이에요. 손님 한 분이 저녁 한 번에 얼마쯤 쓰실까요?",
+   "buckets": [
+    {
+     "label_ko": "25,000원 아래",
+     "min": null,
+     "max": 25000
+    },
+    {
+     "label_ko": "25,000원~30,000원",
+     "min": 25000,
+     "max": 30000
+    },
+    {
+     "label_ko": "30,000원~35,000원",
+     "min": 30000,
+     "max": 35000
+    },
+    {
+     "label_ko": "35,000원 넘게",
+     "min": 35000,
+     "max": null
+    }
+   ],
+   "answer_bucket": 1,
+   "reveal_ko": "객단가는 27,000원이에요",
+   "source_ids": [
+    "S28",
+    "S25"
+   ],
+   "confidence": null,
+   "preliminary": true
+  },
+  {
+   "order": 3,
+   "anchor": "tables",
+   "criterion_id": "drv_covers",
+   "title_ko": "착석고객수",
+   "side": "revenue",
+   "value": 970,
+   "unit": "명/월",
+   "display_ko": "970명",
+   "share_of_revenue": null,
+   "formula_ko": "좌석수 × 점유율 × 회전율 × 영업일수 (월 기준)",
+   "params": [
+    {
+     "criterion_id": "drv_seats",
+     "name_ko": "좌석수",
+     "value": 43.2,
+     "unit": "석",
+     "display_ko": "43.2석",
+     "confidence": null,
+     "source_ids": [
+      "S34"
+     ],
+     "is_lever": false,
+     "lever": null,
+     "tag_ko": "근거 S34",
+     "reviewed": false
+    },
+    {
+     "criterion_id": "sto_occupancy",
+     "name_ko": "좌석 점유율 (착석 시)",
+     "value": 0.7,
+     "unit": "비율",
+     "display_ko": "70%",
+     "confidence": "L",
+     "source_ids": [],
+     "is_lever": false,
+     "lever": null,
+     "tag_ko": "가정",
+     "reviewed": false
+    },
+    {
+     "criterion_id": "sto_table_turns",
+     "name_ko": "순환률 (회전율)",
+     "value": 1.25,
+     "unit": "회/일",
+     "display_ko": "1.25회",
+     "confidence": "L",
+     "source_ids": [
+      "S30"
+     ],
+     "is_lever": false,
+     "lever": null,
+     "tag_ko": "근거 S30",
+     "reviewed": false
+    },
+    {
+     "criterion_id": "drv_dwell_time",
+     "name_ko": "체류시간",
+     "value": 105,
+     "unit": "분",
+     "display_ko": "105분",
+     "confidence": "L",
+     "source_ids": [
+      "S71",
+      "S72",
+      "S73"
+     ],
+     "is_lever": false,
+     "lever": null,
+     "tag_ko": "근거 S71, S72, S73",
+     "reviewed": false
+    },
+    {
+     "criterion_id": "drv_open_hours",
+     "name_ko": "영업시간",
+     "value": 7,
+     "unit": "시간/일",
+     "display_ko": "7시간",
+     "confidence": "M",
+     "source_ids": [
+      "S12",
+      "S35"
+     ],
+     "is_lever": true,
+     "lever": "close_hour",
+     "tag_ko": "레버",
+     "reviewed": false
+    }
+   ],
+   "sensitivity": [
+    {
+     "lever": "close_hour",
+     "lever_ko": "마감 시간",
+     "step_ko": "1시간",
+     "up_ko": "1시간 늦게 닫으면",
+     "down_ko": "1시간 일찍 닫으면",
+     "up": {
+      "op": -287597,
+      "covers": 34
+     },
+     "down": {
+      "op": -44377,
+      "covers": -52
+     }
+    },
+    {
+     "lever": "terrace",
+     "lever_ko": "야장",
+     "step_ko": "켜고 끄기",
+     "up_ko": "켜면",
+     "down_ko": "끄면",
+     "up": null,
+     "down": {
+      "op": -161589,
+      "covers": -9
+     }
+    }
+   ],
+   "question_ko": "테이블이에요. 한 달에 손님이 몇 분쯤 앉으실까요?",
+   "buckets": [
+    {
+     "label_ko": "600명 아래",
+     "min": null,
+     "max": 600
+    },
+    {
+     "label_ko": "600명~800명",
+     "min": 600,
+     "max": 800
+    },
+    {
+     "label_ko": "800명~1,000명",
+     "min": 800,
+     "max": 1000
+    },
+    {
+     "label_ko": "1,000명 넘게",
+     "min": 1000,
+     "max": null
+    }
+   ],
+   "answer_bucket": 2,
+   "reveal_ko": "착석고객수는 970명이에요",
+   "source_ids": [],
+   "confidence": null,
+   "preliminary": true
+  },
+  {
+   "order": 4,
+   "anchor": "grill",
+   "criterion_id": "drv_food_cost",
+   "title_ko": "식재료비",
+   "side": "cost",
+   "value": 8098022,
+   "unit": "₩/월",
+   "display_ko": "810만원",
+   "share_of_revenue": 0.3098678523193266,
+   "formula_ko": "착석고객수 × (인분/인 × 1인분 원가 + 병/인 × 병 원가 + 사이드 매출 × 원가율 + 1인 반찬 원가)",
+   "params": [
+    {
+     "criterion_id": "cst_meat_cost_per_portion",
+     "name_ko": "고기 원가 (1인분)",
+     "value": 4500.0,
+     "unit": "₩/인분",
+     "display_ko": "4,500원",
+     "confidence": "M",
+     "source_ids": [
+      "S68",
+      "S69"
+     ],
+     "is_lever": true,
+     "lever": "meat_grade",
+     "tag_ko": "레버",
+     "reviewed": false
+    },
+    {
+     "criterion_id": "prd_portions_per_cover",
+     "name_ko": "1인당 고기 인분",
+     "value": 1.0,
+     "unit": "인분/인",
+     "display_ko": "1인분",
+     "confidence": "L",
+     "source_ids": [
+      "S28",
+      "S74"
+     ],
+     "is_lever": false,
+     "lever": null,
+     "tag_ko": "근거 S28, S74",
+     "reviewed": false
+    },
+    {
+     "criterion_id": "cst_alcohol_cost_per_bottle",
+     "name_ko": "주류 원가 (병)",
+     "value": 1600,
+     "unit": "₩/병",
+     "display_ko": "1,600원",
+     "confidence": "M",
+     "source_ids": [
+      "S27"
+     ],
+     "is_lever": false,
+     "lever": null,
+     "tag_ko": "근거 S27",
+     "reviewed": false
+    },
+    {
+     "criterion_id": "cst_side_cost_ratio",
+     "name_ko": "식사·사이드 원가율",
+     "value": 0.35,
+     "unit": "비율",
+     "display_ko": "35%",
+     "confidence": "L",
+     "source_ids": [],
+     "is_lever": false,
+     "lever": null,
+     "tag_ko": "가정",
+     "reviewed": false
+    },
+    {
+     "criterion_id": "cst_banchan_cost_per_cover",
+     "name_ko": "반찬·쌈채소 원가",
+     "value": 1200.0,
+     "unit": "₩/인",
+     "display_ko": "1,200원",
+     "confidence": "L",
+     "source_ids": [],
+     "is_lever": false,
+     "lever": null,
+     "tag_ko": "가정",
+     "reviewed": false
+    }
+   ],
+   "sensitivity": [
+    {
+     "lever": "meat_grade",
+     "lever_ko": "원육",
+     "step_ko": "한 단계",
+     "up_ko": "한 단계 올리면 (숙성)",
+     "down_ko": "한 단계 내리면 (수입 냉동)",
+     "up": {
+      "op": -906453,
+      "covers": 32
+     },
+     "down": {
+      "op": 1490639,
+      "covers": -45
+     }
+    }
+   ],
+   "question_ko": "불판 위 고기예요. 한 달 식재료비가 얼마쯤 나올까요?",
+   "buckets": [
+    {
+     "label_ko": "800만원 아래",
+     "min": null,
+     "max": 8000000
+    },
+    {
+     "label_ko": "800만~1,000만원",
+     "min": 8000000,
+     "max": 10000000
+    },
+    {
+     "label_ko": "1,000만~1,200만원",
+     "min": 10000000,
+     "max": 12000000
+    },
+    {
+     "label_ko": "1,200만원 넘게",
+     "min": 12000000,
+     "max": null
+    }
+   ],
+   "answer_bucket": 1,
+   "reveal_ko": "식재료비는 한 달 810만원, 매출의 31%예요",
+   "source_ids": [
+    "S31"
+   ],
+   "confidence": null,
+   "preliminary": true
+  },
+  {
+   "order": 5,
+   "anchor": "staff",
+   "criterion_id": "drv_labor_cost",
+   "title_ko": "인건비",
+   "side": "cost",
+   "value": 8968656,
+   "unit": "₩/월",
+   "display_ko": "897만원",
+   "share_of_revenue": 0.3431823441466129,
+   "formula_ko": "알바 수 × 교대 시간 × 영업일수 × 시급 × 주휴 계수 + 정직원 급여 + 대표자 인건비",
+   "params": [
+    {
+     "criterion_id": "sto_parttimers",
+     "name_ko": "알바생 수 (교대당)",
+     "value": 2,
+     "unit": "명",
+     "display_ko": "2명",
+     "confidence": "L",
+     "source_ids": [
+      "S31"
+     ],
+     "is_lever": true,
+     "lever": "staff_per_shift",
+     "tag_ko": "레버",
+     "reviewed": false
+    },
+    {
+     "criterion_id": "sto_parttime_shift_hours",
+     "name_ko": "알바 근무시간 (교대)",
+     "value": 5,
+     "unit": "시간/일",
+     "display_ko": "5시간",
+     "confidence": "L",
+     "source_ids": [],
+     "is_lever": false,
+     "lever": null,
+     "tag_ko": "가정",
+     "reviewed": false
+    },
+    {
+     "criterion_id": "sto_parttime_wage",
+     "name_ko": "알바생 시급",
+     "value": 10320.0,
+     "unit": "₩/시간",
+     "display_ko": "10,320원",
+     "confidence": "H",
+     "source_ids": [
+      "S36"
+     ],
+     "is_lever": false,
+     "lever": null,
+     "tag_ko": "근거 S36",
+     "reviewed": false
+    },
+    {
+     "criterion_id": "cst_holiday_pay_factor",
+     "name_ko": "주휴·4대보험 계수",
+     "value": 1.33,
+     "unit": "배수",
+     "display_ko": "1.33배",
+     "confidence": "M",
+     "source_ids": [
+      "S36",
+      "S66",
+      "S67"
+     ],
+     "is_lever": false,
+     "lever": null,
+     "tag_ko": "근거 S36, S66, S67",
+     "reviewed": false
+    },
+    {
+     "criterion_id": "cst_owner_imputed_wage",
+     "name_ko": "대표자 귀속 인건비",
+     "value": 3000000,
+     "unit": "₩/월",
+     "display_ko": "300만원",
+     "confidence": "L",
+     "source_ids": [
+      "S32",
+      "S36"
+     ],
+     "is_lever": false,
+     "lever": null,
+     "tag_ko": "근거 S32, S36",
+     "reviewed": false
+    }
+   ],
+   "sensitivity": [
+    {
+     "lever": "staff_per_shift",
+     "lever_ko": "교대당 알바 수",
+     "step_ko": "1명",
+     "up_ko": "1명 늘리면",
+     "down_ko": "1명 줄이면",
+     "up": {
+      "op": -1784328,
+      "covers": 0
+     },
+     "down": {
+      "op": 1784328,
+      "covers": 0
+     }
+    }
+   ],
+   "question_ko": "직원들이에요. 한 달 인건비가 얼마쯤일까요? 제 몫까지 넣어서요",
+   "buckets": [
+    {
+     "label_ko": "600만원 아래",
+     "min": null,
+     "max": 6000000
+    },
+    {
+     "label_ko": "600만~800만원",
+     "min": 6000000,
+     "max": 8000000
+    },
+    {
+     "label_ko": "800만~1,000만원",
+     "min": 8000000,
+     "max": 10000000
+    },
+    {
+     "label_ko": "1,000만원 넘게",
+     "min": 10000000,
+     "max": null
+    }
+   ],
+   "answer_bucket": 2,
+   "reveal_ko": "인건비는 한 달 897만원, 매출의 34.3%예요",
+   "source_ids": [
+    "S31",
+    "S32",
+    "S36"
+   ],
+   "confidence": null,
+   "preliminary": true
+  },
+  {
+   "order": 6,
+   "anchor": "fridge",
+   "criterion_id": "prd_alcohol_price",
+   "title_ko": "주류 매출 비중",
+   "side": "revenue",
+   "value": 0.16666666666666666,
+   "unit": "비율",
+   "display_ko": "16.7%",
+   "share_of_revenue": 0.16666666666666666,
+   "formula_ko": "병/인 × 주류가 ÷ 객단가",
+   "params": [
+    {
+     "criterion_id": "prd_alcohol_price",
+     "name_ko": "주류 판매가 (소주)",
+     "value": 5000,
+     "unit": "₩/병",
+     "display_ko": "5,000원",
+     "confidence": "M",
+     "source_ids": [
+      "S25",
+      "S26"
+     ],
+     "is_lever": true,
+     "lever": "soju_price",
+     "tag_ko": "레버",
+     "reviewed": false
+    },
+    {
+     "criterion_id": "prd_alcohol_per_cover",
+     "name_ko": "1인당 주류 병수",
+     "value": 0.9,
+     "unit": "병/인",
+     "display_ko": "0.9병",
+     "confidence": "L",
+     "source_ids": [
+      "S62"
+     ],
+     "is_lever": false,
+     "lever": null,
+     "tag_ko": "근거 S62",
+     "reviewed": false
+    },
+    {
+     "criterion_id": "cst_alcohol_cost_per_bottle",
+     "name_ko": "주류 원가 (병)",
+     "value": 1600,
+     "unit": "₩/병",
+     "display_ko": "1,600원",
+     "confidence": "M",
+     "source_ids": [
+      "S27"
+     ],
+     "is_lever": false,
+     "lever": null,
+     "tag_ko": "근거 S27",
+     "reviewed": false
+    }
+   ],
+   "sensitivity": [
+    {
+     "lever": "soju_price",
+     "lever_ko": "소주 한 병",
+     "step_ko": "500원",
+     "up_ko": "500원 올리면",
+     "down_ko": "500원 내리면",
+     "up": {
+      "op": -240878,
+      "covers": -17
+     },
+     "down": {
+      "op": 228037,
+      "covers": 18
+     }
+    }
+   ],
+   "question_ko": "소주 냉장고예요. 매출에서 술이 차지하는 몫이 얼마쯤일까요?",
+   "buckets": [
+    {
+     "label_ko": "15% 아래",
+     "min": null,
+     "max": 0.15000000000000002
+    },
+    {
+     "label_ko": "15%~17.5%",
+     "min": 0.15000000000000002,
+     "max": 0.17500000000000002
+    },
+    {
+     "label_ko": "17.5%~20%",
+     "min": 0.17500000000000002,
+     "max": 0.2
+    },
+    {
+     "label_ko": "20% 넘게",
+     "min": 0.2,
+     "max": null
+    }
+   ],
+   "answer_bucket": 1,
+   "reveal_ko": "소주 한 병 5,000원, 손님 한 명이 0.9병쯤 마셔서 매출의 16.7%가 술이에요",
+   "source_ids": [
+    "S25",
+    "S26"
+   ],
+   "confidence": "M",
+   "preliminary": true
+  },
+  {
+   "order": 7,
+   "anchor": "room",
+   "criterion_id": "drv_operating_profit",
+   "title_ko": "영업이익",
+   "side": "result",
+   "value": 948635,
+   "unit": "₩/월",
+   "display_ko": "95만원",
+   "share_of_revenue": 0.036299171585968085,
+   "formula_ko": "매출 − 총비용",
+   "params": [],
+   "sensitivity": [],
+   "question_ko": "마지막으로 가게 전체예요. 이번 달 남는 돈, 영업이익은 얼마쯤일까요?",
+   "buckets": [
+    {
+     "label_ko": "60만원 아래",
+     "min": null,
+     "max": 600000
+    },
+    {
+     "label_ko": "60만~80만원",
+     "min": 600000,
+     "max": 800000
+    },
+    {
+     "label_ko": "80만~100만원",
+     "min": 800000,
+     "max": 1000000
+    },
+    {
+     "label_ko": "100만원 넘게",
+     "min": 1000000,
+     "max": null
+    }
+   ],
+   "answer_bucket": 2,
+   "reveal_ko": "매출 2,613만원에서 다섯 가지 비용을 빼면 95만원, 매출의 3.6%가 남아요",
+   "source_ids": [
+    "S31"
+   ],
+   "confidence": null,
+   "preliminary": true
+  }
+ ]
+}

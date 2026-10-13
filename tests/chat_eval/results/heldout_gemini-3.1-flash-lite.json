@@ -1,0 +1,324 @@
+{
+ "backend": "gemini",
+ "season_id": "49fb8bb6121b",
+ "season_values": {
+  "last.op": [
+   "414만"
+  ],
+  "last.revenue": [
+   "2825만"
+  ],
+  "last.covers": [
+   "1071명"
+  ],
+  "cash": [
+   "2414만"
+  ]
+ },
+ "rows": [
+  {
+   "id": "h01_revenue_casual",
+   "path": "persona",
+   "category": "pnl",
+   "q": "사장님 한달 매출 얼마나 나와여?",
+   "answer": "지난달 매출은 2,825만원이었어요 [시즌 기록]. 평소 달이면 2,613만원 정도 매출이 나오는데, 이번 달은 공연이랑 축제 때문에 손님이 좀 더 있었네요 [평소 달].",
+   "backend": "gemini",
+   "cached": false,
+   "status": 200,
+   "ms": 1298,
+   "pass": true,
+   "why": [],
+   "retrieval_hit": null,
+   "retrieved": [
+    "docs/RESEARCH.md",
+    "S35",
+    "research/hero_base.yaml#sto_open_days",
+    "docs/RESEARCH.md",
+    "docs/RESEARCH.md"
+   ]
+  },
+  {
+   "id": "h02_net_casual",
+   "path": "persona",
+   "category": "pnl",
+   "q": "솔직히 순수익 얼마 떨어져요?",
+   "answer": "지난달에는 414만원 남았어요 [시즌 기록]. 평소 달이면 95만원 정도 남는 게 전부라 매달 마음을 졸이면서 운영하고 있습니다 [평소 달].",
+   "backend": "gemini",
+   "cached": false,
+   "status": 200,
+   "ms": 1656,
+   "pass": true,
+   "why": [],
+   "retrieval_hit": null,
+   "retrieved": [
+    "docs/RESEARCH.md",
+    "docs/RESEARCH.md",
+    "research/sourcing_round2.md",
+    "docs/RESEARCH.md",
+    "rag/corpus/2026-09-30-seoul-public-data-pork-bbq.md"
+   ]
+  },
+  {
+   "id": "h03_spend_per_person",
+   "path": "persona",
+   "category": "pnl",
+   "q": "손님 한명이 평균 얼마 쓰고 가요",
+   "answer": "손님 한 분이 오시면 평균 27,000원을 쓰고 가십니다 [평소 달]. 고기 1인분 가격에 소주와 식사 메뉴를 곁들이는 걸 계산해 보면 이 정도 금액이 나옵니다 [평소 달].",
+   "backend": "gemini",
+   "cached": false,
+   "status": 200,
+   "ms": 1731,
+   "pass": true,
+   "why": [],
+   "retrieval_hit": null,
+   "retrieved": [
+    "S31",
+    "research/hero_base.yaml#seg_twenties_party_factor",
+    "S23",
+    "S30",
+    "docs/RESEARCH.md"
+   ]
+  },
+  {
+   "id": "h04_multi_cost_price",
+   "path": "persona",
+   "category": "multi",
+   "q": "고기 원가랑 판매가 각각 얼마에요?",
+   "answer": "삼겹살 1인분 고기 원가는 4,500원이고, 판매가는 19,000원이에요 [S68] [S23]. 요즘 물가도 오르고 알바 문제까지 겹쳐서 원가랑 매출 계산할 때마다 정말 머리가 아프네요.",
+   "backend": "gemini",
+   "cached": false,
+   "status": 200,
+   "ms": 2660,
+   "pass": true,
+   "why": [],
+   "retrieval_hit": null,
+   "retrieved": [
+    "S68",
+    "S23",
+    "research/hero_base.yaml#prd_meat_origin",
+    "docs/RESEARCH.md",
+    "research/hero_base.yaml#cst_banchan_cost_per_cover"
+   ]
+  },
+  {
+   "id": "h05_multi_staff_wage",
+   "path": "persona",
+   "category": "multi",
+   "q": "알바 몇명 쓰고 시급은 얼마 줘요?",
+   "answer": "교대당 알바 2명을 쓰고 있고, 시급은 10,320원을 주고 있어요 [S36], [S31]. 요즘 알바가 갑작스럽게 그만두는 바람에 가게 운영이 참 쉽지 않네요 [상황].",
+   "backend": "gemini",
+   "cached": false,
+   "status": 200,
+   "ms": 2685,
+   "pass": true,
+   "why": [],
+   "retrieval_hit": null,
+   "retrieved": [
+    "S36",
+    "docs/RESEARCH.md",
+    "rag/corpus/2026-09-30-pork-bbq-success-label-baselines.md",
+    "docs/RESEARCH.md",
+    "docs/RESEARCH.md"
+   ]
+  },
+  {
+   "id": "h06_nodata_premium",
+   "path": "persona",
+   "category": "nodata",
+   "q": "권리금은 얼마 주고 들어오셨어요?",
+   "answer": "그건 제가 가진 자료에 없어서 모르겠어요. 가게 운영하면서 매달 나가는 임차료나 인건비 같은 비용 챙기기도 바빠서 그런 부분까지는 일일이 말씀드리기 어렵네요.",
+   "backend": "gemini",
+   "cached": false,
+   "status": 200,
+   "ms": 3467,
+   "pass": true,
+   "why": [],
+   "retrieval_hit": null,
+   "retrieved": [
+    "docs/RESEARCH.md",
+    "docs/RESEARCH.md",
+    "docs/DATA.md",
+    "S57",
+    "S55"
+   ]
+  },
+  {
+   "id": "h07_nodata_followers",
+   "path": "persona",
+   "category": "nodata",
+   "q": "인스타 팔로워 몇 명이에요?",
+   "answer": "그건 제가 가진 자료에 없어서 모르겠어요. 가게 운영하느라 정신이 없어서 SNS까지 챙길 여력이 없네요.",
+   "backend": "gemini",
+   "cached": false,
+   "status": 200,
+   "ms": 1615,
+   "pass": true,
+   "why": [],
+   "retrieval_hit": null,
+   "retrieved": [
+    "docs/RESEARCH.md",
+    "research/sourcing_round4_v2.md",
+    "research/hero_base.yaml#mkt_celebrity_visits",
+    "docs/RESEARCH.md",
+    "research/sourcing_round4_v2.md"
+   ]
+  },
+  {
+   "id": "h08_whatif_banchan",
+   "path": "persona",
+   "category": "whatif",
+   "q": "반찬 하나 줄이면 돈 더 남아요?",
+   "answer": "반찬 가짓수를 1가지 줄이면 영업이익이 23만원 더 남아요 [평소 달]. 다만 손님 수에는 변화가 없으니 가게 운영 상황을 봐서 신중하게 결정하려고 합니다 [평소 달].",
+   "backend": "gemini",
+   "cached": false,
+   "status": 200,
+   "ms": 3613,
+   "pass": true,
+   "why": [],
+   "retrieval_hit": null,
+   "retrieved": [
+    "research/sourcing_round4_v2.md",
+    "research/sourcing_round4_v2.md",
+    "docs/RESEARCH.md",
+    "research/sourcing_round3.md",
+    "research/sourcing_round2.md"
+   ]
+  },
+  {
+   "id": "h09_whatif_close_late",
+   "path": "persona",
+   "category": "whatif",
+   "q": "문 한시간 더 늦게 닫으면 어때요",
+   "answer": "영업시간을 한 시간 더 늦게 닫으면 영업이익은 29만원 줄어들고 손님은 34명 늘어납니다 [평소 달]. \n\n손님은 조금 더 받을 수 있겠지만, 인건비나 관리비 같은 고정 비용이 늘어나서 계산해 보면 오히려 이익은 줄어드는 구조예요. 대학로에서 늦게까지 장사하는 게 쉽지 않은데, 고민이 많네요.",
+   "backend": "gemini",
+   "cached": false,
+   "status": 200,
+   "ms": 2844,
+   "pass": true,
+   "why": [],
+   "retrieval_hit": null,
+   "retrieved": [
+    "docs/RESEARCH.md",
+    "docs/RESEARCH.md",
+    "rag/corpus/2026-09-30-pork-bbq-success-label-baselines.md",
+    "research/sourcing_round4_v2.md",
+    "research/sourcing_round4_v2.md"
+   ]
+  },
+  {
+   "id": "h10_competition",
+   "path": "persona",
+   "category": "district",
+   "q": "여기 근처 삼겹살집 경쟁 심해요? 몇 군데나 돼요",
+   "answer": "대학로 상권에는 돼지고기 구이집이 27곳 있어요 [S20]. 가게들끼리 경쟁이 워낙 치열해서 저도 매일 손님 흐름 보며 마음 졸이고 있네요.",
+   "backend": "gemini",
+   "cached": false,
+   "status": 200,
+   "ms": 3134,
+   "pass": true,
+   "why": [],
+   "retrieval_hit": null,
+   "retrieved": [
+    "S34",
+    "research/sourcing_round2.md",
+    "rag/corpus/2026-09-30-pork-bbq-success-label-baselines.md",
+    "docs/RESEARCH.md",
+    "S35"
+   ]
+  },
+  {
+   "id": "h11_rush_hour",
+   "path": "persona",
+   "category": "operations",
+   "q": "제일 손님 몰리는 때가 몇시쯤?",
+   "answer": "저희 가게는 저녁 19시에서 21시 사이에 손님이 제일 많이 몰립니다 [가정]. 17시부터 21시까지 오는 손님의 65%가 이 시간대에 집중되거든요 [가정].",
+   "backend": "gemini",
+   "cached": false,
+   "status": 200,
+   "ms": 1529,
+   "pass": true,
+   "why": [],
+   "retrieval_hit": null,
+   "retrieved": [
+    "docs/RESEARCH.md",
+    "research/hero_base.yaml#seg_twenties_early_mult",
+    "research/hero_base.yaml#seg_twenties_late_mult",
+    "S12",
+    "research/hero_base.yaml#seg_office_early_mult"
+   ]
+  },
+  {
+   "id": "h12_closure_rate",
+   "path": "persona",
+   "category": "district",
+   "q": "폐업하는 가게 많아요? 2년안에 문닫는 비율이요",
+   "answer": "대학로 음식점 전체를 보면 24개월 안에 폐업하는 비율이 10.1%예요 [근거 자료]. 고깃집만 따로 떼어놓고 보면 24개월 안에 폐업하는 비율은 15.4%입니다 [가게 숫자]. 요즘 장사하면서도 주변 가게들 바뀌는 거 보면 마음이 참 무거워요.",
+   "backend": "gemini",
+   "cached": false,
+   "status": 200,
+   "ms": 1825,
+   "pass": true,
+   "why": [],
+   "retrieval_hit": null,
+   "retrieved": [
+    "rag/corpus/2026-09-30-pork-bbq-success-label-baselines.md",
+    "docs/RESEARCH.md",
+    "S40",
+    "rag/corpus/2026-09-30-pork-bbq-success-label-baselines.md",
+    "research/sourcing_round4_v2.md"
+   ]
+  }
+ ],
+ "summary": {
+  "persona": {
+   "n": 12,
+   "pass": 12,
+   "model_n": 12,
+   "model_pass": 12,
+   "fallback": 0,
+   "errors": 0,
+   "ret_n": 0,
+   "ret_hit": 0,
+   "by_category": {
+    "pnl": [
+     3,
+     3
+    ],
+    "multi": [
+     2,
+     2
+    ],
+    "nodata": [
+     2,
+     2
+    ],
+    "whatif": [
+     2,
+     2
+    ],
+    "district": [
+     2,
+     2
+    ],
+    "operations": [
+     1,
+     1
+    ]
+   },
+   "ms": [
+    1298,
+    1656,
+    1731,
+    2660,
+    2685,
+    3467,
+    1615,
+    3613,
+    2844,
+    3134,
+    1529,
+    1825
+   ]
+  }
+ }
+}

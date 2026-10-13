@@ -1,0 +1,43 @@
+# 폴더별 담당자 (GitHub 아이디가 정해지면 아래 줄의 맨 앞 # 을 지우고 @아이디 로 바꾸세요)
+# 마지막에 맞는 줄이 우선합니다. 실제 아이디가 없는 줄은 주석으로 두어야 GitHub 가 오류를 내지 않습니다
+#
+# 기본 (통합 담당)
+# *                       @OWNER_INTEGRATION
+#
+# 리서치 A: 공공데이터, 상권, 생존 라벨
+# /pipelines/             @RESEARCH_A
+# /industry/              @RESEARCH_A
+# /data/processed/        @RESEARCH_A
+# /docs/DATA.md           @RESEARCH_A
+#
+# 리서치 B: 추정치, 문헌, 인터뷰
+# /research/              @RESEARCH_B
+# /docs/RESEARCH.md       @RESEARCH_B
+# /rag/corpus/            @RESEARCH_B
+#
+# 온톨로지 (기준과 인과 관계)
+# /ontology/              @OWNER_ONTOLOGY
+#
+# 아키텍처: DB, API, RAG, LLM 어댑터, 실행 환경
+# /db/                    @ARCHITECTURE
+# /api/                   @ARCHITECTURE
+# /rag/                   @ARCHITECTURE
+# /agents/                @ARCHITECTURE
+# /scripts/               @ARCHITECTURE
+# /tests/                 @ARCHITECTURE
+# /docker-compose.yml     @ARCHITECTURE
+# /requirements.txt       @ARCHITECTURE
+# /docs/ARCHITECTURE.md   @ARCHITECTURE
+# /docs/SETUP.md          @ARCHITECTURE
+#
+# 시뮬레이션
+# /sim/                   @SIMULATION
+# /docs/SIMULATION.md     @SIMULATION
+# /docs/EVENT_LOG.md      @SIMULATION
+#
+# 화면과 3D
+# /web/                   @UI_3D
+#
+# 안전장치는 두 사람이 봅니다 (LLM 호출 상한, 쓰기 제한)
+# /agents/llm.py          @ARCHITECTURE @OWNER_INTEGRATION
+# /agents/guesstimate.py  @ARCHITECTURE @RESEARCH_B

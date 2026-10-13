@@ -1,0 +1,81 @@
+# Held-out owner-chat questions (written 2026-10-05 AFTER the fixes in d6cafcc; nothing was tuned on them).
+# Different phrasing from questions.yaml: casual / typo-ish Korean, 2 multi-part, 2 asking for a number the repo
+# does not have, 2 lever "what if"s. Same format and matching rules as questions.yaml; ground truth from repo data only.
+# Run: python -m tests.chat_eval.run --set heldout [--backend gemini --path persona]
+version: 1
+questions:
+  - id: h01_revenue_casual
+    q: 사장님 한달 매출 얼마나 나와여?
+    category: pnl
+    expect: [["2613만"]]
+    accept_season: [last.revenue]
+    truth: 평소 달 월 매출 2,613만원 (또는 방금 끝난 달의 매출)
+    source: SIM revenue (sim.season.baseline_month)
+  - id: h02_net_casual
+    q: 솔직히 순수익 얼마 떨어져요?
+    category: pnl
+    expect: [["95만"]]
+    accept_season: [last.op]
+    truth: 평소 달 영업이익 95만원 (사장 몫 인건비 300만원을 비용에 넣은 뒤), 또는 방금 끝난 달의 영업이익
+    source: SIM op
+  - id: h03_spend_per_person
+    q: 손님 한명이 평균 얼마 쓰고 가요
+    category: pnl
+    expect: [["27000원", "2만7천원", "2만7000원"]]
+    truth: 객단가 27,000원
+    source: SIM ticket
+  - id: h04_multi_cost_price
+    q: 고기 원가랑 판매가 각각 얼마에요?
+    category: multi
+    expect: [["4500원", "4천5백원", "4천500원"], ["19000원", "1만9천원", "1만9000원"]]
+    truth: 1인분 고기 원가 4,500원, 판매가 19,000원
+    source: HERO cst_meat_cost_per_portion (S68), prd_meat_price (S23)
+  - id: h05_multi_staff_wage
+    q: 알바 몇명 쓰고 시급은 얼마 줘요?
+    category: multi
+    expect: [["2명", "두명"], ["10320원", "1만320원"]]
+    truth: 교대당 알바 2명, 시급 10,320원
+    source: HERO sto_parttimers (S31), sto_parttime_wage (S36)
+  - id: h06_nodata_premium
+    q: 권리금은 얼마 주고 들어오셨어요?
+    category: nodata
+    expect: [["모르", "자료가없", "자료에없", "자료는없", "어렵", "알수없", "드릴수없", "없어서"]]
+    truth: 권리금 자료 없음 (repo 어디에도 없음); 숫자를 대면 지어낸 것
+    source: none (grep 권리금 over research/, rag/corpus/, docs/, ontology/ finds nothing)
+  - id: h07_nodata_followers
+    q: 인스타 팔로워 몇 명이에요?
+    category: nodata
+    expect: [["모르", "자료가없", "자료에없", "자료는없", "어렵", "알수없", "드릴수없", "없어서", "안해", "안합", "하지않"]]
+    no_numbers: true
+    truth: SNS 팔로워 자료 없음
+    source: none
+  - id: h08_whatif_banchan
+    q: 반찬 하나 줄이면 돈 더 남아요?
+    category: whatif
+    expect: [["23만"]]
+    truth: 반찬 1가지 줄이면 영업이익 +23만원 (232,340원), 손님 변화 없음
+    source: sim.season.preview sensitivity banchan down (평소 달 기준)
+  - id: h09_whatif_close_late
+    q: 문 한시간 더 늦게 닫으면 어때요
+    category: whatif
+    expect: [["29만"], ["34명"]]
+    truth: 1시간 늦게 닫으면 영업이익 −29만원 (−287,597원), 손님 +34명
+    source: sim.season.preview sensitivity close_hour up (= web/public/data/tour.json drv_covers card)
+  - id: h10_competition
+    q: 여기 근처 삼겹살집 경쟁 심해요? 몇 군데나 돼요
+    category: district
+    expect: [["27곳", "27개", "27군데"]]
+    truth: 대학로(혜화역) 상권 돼지고기 구이집 27곳
+    source: DIST trdar.3120012.sbiz_stores.I20107.stores; HERO reg_competitors (S20)
+  - id: h11_rush_hour
+    q: 제일 손님 몰리는 때가 몇시쯤?
+    category: operations
+    expect: [["19시", "19~21", "19-21", "7시~9시", "7시부터", "저녁7시", "오후7시", "7~9시"]]
+    truth: 저녁 19~21시 (가정)
+    source: sim/params.py peak_hour_weights_17_21
+  - id: h12_closure_rate
+    q: 폐업하는 가게 많아요? 2년안에 문닫는 비율이요
+    category: district
+    expect: [["15.4%", "10.1%", "85.9%"]]
+    truth: 고깃집(종로구+신촌역 119곳) 24개월 안에 폐업 15.4% (2년 생존 85.9%); 대학로 음식점 349곳 24개월 안에 폐업 10.1%
+    source: DIST survival_wide.pork_name_only.share_closed_within_24m, survival.all_uptae_primary

@@ -1,0 +1,18 @@
+/* #/sources: operator ledger. Plain tables, no decoration. */
+html:has(.src) { background: #fff; }
+.src { max-inline-size: 1280px; margin: 0 auto; padding: 24px 20px 80px; font: 400 15px/1.6 "Pretendard Variable", Pretendard, system-ui, sans-serif; color: #191f28; word-break: keep-all; }
+.src h1 { margin: 8px 0; font-size: 26px; }
+.src h2 { margin: 36px 0 8px; font-size: 19px; }
+.src h3 { margin: 20px 0 6px; font-size: 16px; }
+.src a { color: #2f4fc4; }
+.src code { font-size: 13.5px; background: #f4f6fa; padding: 1px 5px; border-radius: 4px; }
+.src table { inline-size: 100%; border-collapse: collapse; }
+.src th, .src td { padding: 7px 10px; border: 1px solid #e5e8eb; text-align: start; vertical-align: top; }
+.src th { background: #f4f6fa; font-weight: 600; white-space: nowrap; }
+.src td.n, .src table.num td:not(:first-child) { text-align: end; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.src .k { display: inline-block; padding: 0 7px; border-radius: 4px; font-weight: 600; white-space: nowrap; }
+.src .k-실측 { background: #dff3df; color: #004d00; }
+.src .k-차용 { background: #e3ebfd; color: #23409e; }
+.src .k-가정 { background: #fdf0cc; color: #6b4700; }
+.src .k-예시값 { background: #fbdcdc; color: #8f1d1d; }
+.src ul { padding-inline-start: 20px; }

@@ -1,0 +1,58 @@
+# Guided story (시연 모드, docs/GAME-V2-SPEC.md §7). Precomputed by `python -m sim.guided` into
+# web/public/guided/. Each month: scripted events, presenter narration, and a decision with options. Every option
+# is simulated from the same starting state; the story continues along `story_choice`.
+seed: 2026
+months:
+  - month: 10
+    title: 평소의 대학로
+    events: [festival_week]
+    narration:
+      - 대학로 혜화역 상권의 삼겹살집 한 곳입니다. 테이블 10개, 삼겹살 1인분 19,000원, 소주 5,000원.
+      - 10월은 공연과 축제로 거리가 붐비는 달입니다. 먼저 평소대로 한 달을 운영해 봅니다.
+      - 이 이야기는 사장님이 가장 끌리기 쉬운 선택, 이번 달 현금을 먼저 지키는 쪽을 따라갑니다. 그 선택이 무엇을 남기는지는 마지막 카드에서 다른 길과 나란히 봅니다.
+    decision:
+      prompt: 이번 달은 평소 계획 그대로 갑니다
+      options:
+        - {id: base, label: "평소대로", changes: {}}
+    story_choice: base
+  - month: 11
+    title: 돼지고기 값이 오른다
+    events: [pork_up]
+    narration:
+      - 11월, 돼지고기 도매가가 8% 올랐습니다. 1인분 원가가 4,500원에서 약 4,860원이 됩니다.
+      - 선택지는 셋입니다. 그대로 버티면 마진이 줄고, 가격을 올리면 손님이 조금 줄고, 수입 냉동육으로 바꾸면 원가는 절반이 되지만 같은 가격에 손님 만족이 크게 떨어집니다.
+      - 이야기는 원가 상승분을 메뉴 가격으로 넘기는 가장 흔한 대응을 따라갑니다. 손님이 그 가격을 어떻게 받아들이는지는 다음 달부터 드러납니다.
+    decision:
+      prompt: 원가 상승에 어떻게 대응할까요?
+      options:
+        - {id: absorb, label: "그대로 버티기", changes: {}}
+        - {id: reprice, label: "삼겹살 1,000원 인상", changes: {meat_price: 20000}}
+        - {id: imported, label: "수입 냉동육으로 교체", changes: {meat_grade: imported}}
+    story_choice: reprice
+  - month: 12
+    title: 연말 회식 시즌
+    events: []
+    narration:
+      - 12월은 직장인 회식이 몰리는 달입니다. 단체 예약을 받으면 회식 손님을 더 잡을 수 있습니다.
+      - 대신 예약석 하나가 워크인 손님을 막고, 음식점 예약 다섯 건 중 한 건은 노쇼입니다.
+      - 이야기는 눈앞의 매출이 큰 쪽, 단체 예약을 받는 쪽을 따라갑니다. 붐비는 저녁이 단골에게 무엇을 남기는지는 마지막 카드에서 봅니다.
+    decision:
+      prompt: 단체 예약을 받을까요?
+      options:
+        - {id: walkin, label: "평소대로 워크인만", changes: {}}
+        - {id: groups, label: "단체 예약 받기", changes: {group_reservations: true}}
+    story_choice: groups
+  - month: 1
+    title: 방학, 그리고 길 건너 경쟁점
+    events: [competitor_open, cold_wave]
+    narration:
+      - 1월, 학생들이 방학으로 빠지고 한파가 왔습니다. 길 건너에는 새 고깃집이 문을 열었고, 최저임금도 올랐습니다.
+      - 손님이 줄어드는 달입니다. 알바를 줄이면 인건비는 아끼지만 서비스가 느려지고 남은 사람이 지칩니다. 점심 영업은 매출을 늘리지만 추운 1월에는 인건비가 더 듭니다.
+      - 이야기는 당장 덜 잃는 쪽, 알바를 줄이는 쪽을 따라갑니다. 느려진 서비스의 대가는 마지막 카드에서 확인합니다.
+    decision:
+      prompt: 어떻게 버틸까요?
+      options:
+        - {id: hold, label: "예약 정리하고 평소 인력으로", changes: {group_reservations: false}}
+        - {id: staff1, label: "교대당 알바 1명으로 줄이기", changes: {group_reservations: false, staff_per_shift: 1}}
+        - {id: lunch, label: "점심 영업 시작", changes: {group_reservations: false, lunch: true}}
+    story_choice: staff1

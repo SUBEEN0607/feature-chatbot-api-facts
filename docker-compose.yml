@@ -1,0 +1,33 @@
+# docker compose up -d --build       API http://localhost:8000/docs   web http://localhost:5173
+# Other host ports (e.g. 8000 or 5173 already in use): set API_PORT / WEB_PORT in .env or the shell.
+# Default DB is the SQLite file baked into the API image. Postgres + pgvector instead:
+#   docker compose -f docker-compose.yml -f docker-compose.postgres.yml up -d --build
+# Windows step by step: docs/WINDOWS-DOCKER.md
+name: team-gogi
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    image: team-gogi-api
+    environment:
+      LLM_BACKEND: ${LLM_BACKEND:-mock}          # claude_cli only works when uvicorn runs on the host Mac
+      LLM_SESSION_CAP: ${LLM_SESSION_CAP:-30}
+      RAG_EMBEDDER: ${RAG_EMBEDDER:-e5}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      CORS_ORIGINS: http://localhost:${WEB_PORT:-5173},http://127.0.0.1:${WEB_PORT:-5173}
+    ports:
+      - "127.0.0.1:${API_PORT:-8000}:8000"
+
+  web:
+    build:
+      context: ./web
+    image: team-gogi-web
+    environment:
+      VITE_API_BASE: http://127.0.0.1:${API_PORT:-8000}    # read by the browser on the host, so the host port
+    ports:
+      - "127.0.0.1:${WEB_PORT:-5173}:5173"
+    depends_on:
+      api:
+        condition: service_healthy

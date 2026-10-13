@@ -1,0 +1,125 @@
+/* Direction A: editorial report. Serif narrative, typeset table, margin notes. Cool paper, ink blue-black. */
+.da {
+  --paper: oklch(0.976 0.004 230);
+  --ink: oklch(0.24 0.025 258);
+  --muted: oklch(0.5 0.018 255);
+  --rule: oklch(0.86 0.008 240);
+  --base: oklch(0.5 0.11 160);
+  --shock: oklch(0.6 0.16 40);
+  --serif: "Noto Serif KR", "Nanum Myeongjo", serif;
+  --sans: "Pretendard Variable", Pretendard, system-ui, sans-serif;
+  min-block-size: 100dvh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  display: grid;
+  grid-template-columns: minmax(220px, 280px) minmax(0, 1fr) minmax(300px, 380px);
+  gap: clamp(24px, 3vw, 56px);
+  padding-inline: clamp(16px, 3.5vw, 56px);
+  -webkit-font-smoothing: antialiased;
+}
+
+.da-nav { position: sticky; inset-block-start: 0; align-self: start; padding-block: 40px; font-family: var(--sans); }
+.da-home { font-size: 13px; color: var(--muted); text-decoration: none; }
+.da-home:hover { color: var(--ink); text-decoration: underline; }
+.da-nav-title { margin: 28px 0 10px; font-family: var(--serif); font-size: 18px; font-weight: 600; }
+.da-nav ul { list-style: none; margin: 0; padding: 0; border-block-start: 1px solid var(--rule); }
+.da-nav li { border-block-end: 1px solid var(--rule); }
+.da-nav button {
+  inline-size: 100%; text-align: start; font: inherit; font-size: 15px; line-height: 1.4; color: var(--ink);
+  background: none; border: 0; padding: 10px 2px; cursor: pointer; display: grid; gap: 2px;
+  transition-property: color, scale; transition-duration: 150ms; transition-timing-function: ease-out;
+}
+.da-nav button:active { scale: 0.98; }
+.da-nav-driver { font-size: 12px; color: var(--muted); }
+.da-nav button[aria-current="true"] { color: var(--shock); font-weight: 650; }
+.da-nav button[aria-current="true"] .da-nav-driver { color: var(--shock); }
+
+.da-main { padding-block: 40px 80px; max-inline-size: 780px; }
+.da-kicker { margin: 0 0 18px; font-family: var(--sans); font-size: 14px; color: var(--muted); }
+.da-head {
+  margin: 0; font-size: clamp(30px, 3.3vw, 50px); line-height: 1.3; font-weight: 800; letter-spacing: -0.02em;
+  text-wrap: balance; word-break: keep-all;
+}
+.da-deck { margin-block: 22px 40px; font-size: 18px; line-height: 1.8; color: oklch(0.34 0.02 255); word-break: keep-all; }
+.da-deck p { margin: 0 0 6px; }
+
+.da-table { margin: 0 0 48px; }
+.da-table figcaption, .da-plan figcaption { font-family: var(--sans); font-size: 13.5px; color: var(--muted); margin-block-end: 10px; line-height: 1.5; }
+.da-table table { inline-size: 100%; border-collapse: collapse; font-family: var(--sans); font-size: 15px; font-variant-numeric: tabular-nums; }
+.da-table thead th { font-size: 12.5px; font-weight: 500; color: var(--muted); text-align: end; padding: 0 10px 8px; border-block-end: 1.5px solid var(--ink); }
+.da-table thead th:first-child { text-align: start; padding-inline-start: 0; }
+.da-table tbody th { text-align: start; font-weight: 500; padding: 9px 10px 9px 0; }
+.da-table td { text-align: end; padding: 9px 10px; white-space: nowrap; }
+.da-table tbody tr { border-block-end: 1px solid var(--rule); }
+.da-table .da-rangecol { inline-size: 26%; padding-inline-end: 0; }
+.da-up { color: var(--base); font-weight: 600; }
+.da-down { color: var(--shock); font-weight: 600; }
+.da-flat { color: var(--muted); }
+.da-foot { font-family: var(--sans); font-size: 12.5px; color: var(--muted); margin: 10px 0 0; }
+.da .rb .rb-base rect { fill: var(--base, #2f8f5b); }
+.da .rb .rb-shock rect { fill: var(--shock, #e0703a); }
+
+.da-plan { margin: 0 0 56px; }
+.da-plan figcaption a { color: var(--ink); text-underline-offset: 3px; }
+.da-fp { inline-size: 100%; block-size: auto; display: block; margin-block-end: 10px; background: white; outline: 1px solid oklch(0 0 0 / 0.08); }
+.da .fp .fp-street { fill: oklch(0.8 0.006 250); }
+.da .fp .fp-walk { fill: oklch(0.92 0.004 250); }
+.da .fp .fp-room { fill: oklch(0.96 0.01 80); stroke: oklch(0.45 0.01 250); stroke-width: 0.12; }
+.da .fp .fp-glass { stroke: oklch(0.7 0.05 220); stroke-width: 0.16; }
+.da .fp .fp-counter { fill: oklch(0.62 0.06 60); }
+.da .fp .fp-fridge { fill: oklch(0.55 0.1 160); }
+.da .fp .fp-top { fill: oklch(0.83 0.008 250); stroke: oklch(0.55 0.01 250); stroke-width: 0.04; }
+.da .fp .fp-terrace .fp-top { fill: white; }
+.da .fp .fp-grill { fill: oklch(0.3 0 0); }
+.da .fp .fp-stool { fill: oklch(0.5 0.05 50); }
+.da .fp .fp-terrace .fp-stool { fill: oklch(0.6 0.18 30); }
+.da .fp .fp-queue { fill: none; stroke: oklch(0.55 0.01 250); stroke-width: 0.06; stroke-dasharray: 0.12 0.1; }
+.da .fp .fp-door { fill: none; stroke: oklch(0.45 0.01 250); stroke-width: 0.06; }
+.da .fp .fp-label { font-family: "Pretendard Variable", Pretendard, sans-serif; font-size: 0.38px; fill: oklch(0.3 0.01 250); text-anchor: middle; }
+
+.da-chat h2, .da-margin h2 { font-size: 22px; font-weight: 700; margin: 0 0 8px; letter-spacing: -0.01em; }
+.da-chat-note { font-family: var(--sans); font-size: 13.5px; color: var(--muted); margin: 0 0 16px; }
+.da-q { font-size: 18px; line-height: 1.7; margin: 0 0 6px; padding-inline-start: 16px; border-inline-start: 3px solid var(--ink); }
+.da-a { font-family: var(--sans); font-size: 14px; color: var(--muted); margin: 0 0 18px; padding-inline-start: 19px; }
+.da-ask { display: grid; grid-template-columns: 1fr auto; gap: 8px; font-family: var(--sans); }
+.da-ask label { grid-column: 1 / -1; font-size: 13px; color: var(--muted); }
+.da-ask input { font: inherit; font-size: 16px; padding: 10px 12px; border: 1px solid var(--rule); border-radius: 8px; background: white; }
+.da-ask button { font: inherit; font-size: 15px; padding: 0 16px; border-radius: 8px; border: 0; background: var(--ink); color: white; opacity: 0.4; }
+
+.da-margin { padding-block: 40px; font-family: var(--sans); align-self: start; position: sticky; inset-block-start: 0; max-block-size: 100dvh; overflow: auto; }
+.da-margin h2 { font-family: var(--serif); font-size: 19px; }
+.da-margin > p { font-size: 13.5px; line-height: 1.55; color: var(--muted); margin: 0 0 14px; }
+
+.da .ot ul { list-style: none; margin: 0; padding: 0; }
+.da .ot-row { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 8px; align-items: baseline; padding-block: 5px; border-block-end: 1px solid var(--rule, #ddd); }
+.da .ot-toggle { display: inline-flex; align-items: baseline; gap: 6px; font: inherit; background: none; border: 0; padding: 0; color: inherit; cursor: pointer; text-align: start; min-inline-size: 0; }
+.da .ot-caret { inline-size: 0; block-size: 0; border-inline-start: 5px solid currentColor; border-block: 4px solid transparent; transition-property: rotate; transition-duration: 150ms; transition-timing-function: ease-out; translate: 0 -1px; }
+.da .ot-toggle[aria-expanded="true"] .ot-caret { rotate: 90deg; }
+.da .ot-name { font-size: 14px; }
+.da .ot-driver > .ot-row .ot-name { font-weight: 650; }
+.da .ot-plain { padding-inline-start: 11px; }
+.da .ot-count { font-size: 11.5px; color: var(--muted, #777); font-variant-numeric: tabular-nums; }
+.da .ot-val { font-size: 12.5px; font-variant-numeric: tabular-nums; color: var(--ink, #222); white-space: nowrap; }
+.da .ot-method { font-size: 11.5px; color: var(--muted, #777); white-space: nowrap; }
+.da .ot-group { margin: 18px 0 4px; font-size: 13px; font-weight: 650; }
+.da button:focus-visible, .da a:focus-visible { outline: 2px solid var(--shock); outline-offset: 2px; }
+
+@media (max-width: 1180px) {
+  .da { grid-template-columns: minmax(200px, 240px) minmax(0, 1fr); }
+  .da-margin { grid-column: 2; position: static; max-block-size: none; padding-block-start: 0; }
+}
+@media (max-width: 760px) {
+  .da { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .da-nav { position: static; padding-block: 20px 0; }
+  .da-nav-title { margin-block-start: 14px; }
+  .da-nav ul { display: flex; overflow-x: auto; gap: 8px; border: 0; padding-block-end: 6px; scrollbar-width: thin; }
+  .da-nav li { border: 1px solid var(--rule); border-radius: 10px; flex: none; }
+  .da-nav button { padding: 8px 12px; font-size: 14px; white-space: nowrap; }
+  .da-main { padding-block: 24px 40px; }
+  .da-deck { font-size: 16px; }
+  .da-table table { font-size: 13.5px; }
+  .da-table .da-rangecol { display: none; }
+  .da-table td, .da-table thead th { padding-inline: 6px; }
+  .da-margin { grid-column: 1; padding-block: 0 40px; }
+}

@@ -1,0 +1,64 @@
+# DRAFT, not wired into any run. Copied from pork_bbq.yaml's shape; see research/port_lamb.md.
+# Keys marked NEW are not read by the current pipelines and need a code change before this file can run.
+# Do not pass this file to pipelines.run_all until those keys are implemented and the UNVERIFIED values checked.
+
+industry: lamb_bbq
+label_ko: 양고기집 (양꼬치/양갈비)
+
+# 상권 (TRDAR_CD), checked by point-in-polygon on data/raw/seoul_trdar_relm_OA-15560.zip (2026-10-01).
+trdar:
+  primary: ["3110140"]     # 건대입구역 6번 (골목상권, 광진구 자양4동), 양꼬치거리: 12 lamb stores, 44 I20201
+  fringe: ["3120053"]      # 건대입구역(건대) (발달상권): 6 lamb stores
+  # Second twin candidate (different clientele, 20대 매출 8%): ["3120142"] 대림역
+
+seoul:
+  # 80% of keyword-matched lamb stores are filed as 중국집, so 중식음식점 is the closest Seoul service code.
+  # It also contains non-lamb Chinese restaurants: context signal, not lamb revenue.
+  service_codes: ["CS100002"]   # 중식음식점
+  quarters: {start: "20211", end: "20262"}
+
+sbiz:
+  dataset_id: "15083033"
+  sido_token: 서울
+  # No lamb 소분류 exists. Lamb = name keyword match inside I2, excluding I212 (cafés named after the street).
+  primary_codes: ["I20201", "I20107", "I21104"]   # 중국집, 돼지고기 구이/찜, 요리 주점: 94% of lamb stores
+  comparison_codes: ["I20201"]                    # all 중국집 (lamb and non-lamb) for context
+  context_prefix: "I202"
+  name_keywords: ["양꼬치", "양갈비", "양고기", "징기스칸", "칭기즈칸", "양육관", "양다리", "양뼈", "라무진", "羊"]   # NEW: needs fetch_sbiz.py support
+  name_keyword_scope: "I2"          # NEW: apply keywords across all 음식 codes (라무진 is misfiled under 베트남식/일식)
+  exclude_mid_codes: ["I212"]       # NEW
+
+license:
+  services: ["LOCALDATA_072404_<광진구 suffix>"]   # UNVERIFIED: per-구 service id for 광진구 not checked
+  opnsfteam_codes: ["<광진구 code>"]                # UNVERIFIED
+  hansik_uptae: ["중국식"]                          # field name kept for compatibility; holds the cohort 업태. UNVERIFIED value
+  source_crs: "EPSG:5174"
+  name_keywords: ["양꼬치", "양갈비", "양고기", "징기스칸", "칭기즈칸", "양육관", "라무진"]
+
+match:
+  max_dist_m: 20
+  name_min: 60
+
+survival:
+  cohort_start: "2015-01-01"
+  horizon_months: 24
+  km_times_months: [6, 12, 24, 36, 48, 60, 84, 120]
+
+# NEW section: what the ontology swap and the workbook need (read by nobody yet; documentation for the port).
+template:
+  replaces_bbq_rows:
+    prd_cut_style: prd_lamb_rib_share
+    prd_chobeol: prd_preskewered
+    prd_portion_grams: prd_skewers_per_portion
+    svc_staff_grilling: svc_auto_rotisserie
+  new_nodes: [prd_alcohol_mix, cst_lamb_import_price_aud, cst_fx_krw_aud, cst_import_passthrough]
+  hero_seed:                      # illustrative; sources in research/port_lamb.md
+    prd_meat_price: {low: 16000, base: 17000, high: 18000, unit: "₩/인분(10꼬치)", source_id: "S75"}
+    rent_per_sqm_1f: {base: 51451, unit: "₩/㎡/월", source_id: "S52 (R-ONE 건대입구, 2026Q2)"}
+    cst_fx_krw_aud: {base: 1028, unit: "₩/AUD (2026 Jan-Sep mean)", source_id: "S79"}
+    cst_import_passthrough: {base: 0.7, unit: "share", confidence: L, source_id: null}
+  shocks:
+    SHL03: {parameter: cst_lamb_import_price_aud, delta_type: pct, low: 0.10, base: 0.29, high: 0.63, source_id: "S78"}
+    SHL12: {parameter: cst_fx_krw_aud, delta_type: pct, low: 0.03, base: 0.12, high: 0.21, relief: -0.08, source_id: "S79"}
+    SH09: {parameter: drv_arrival_rate, delta_type: pct, low: -0.03, base: -0.05, high: -0.10, source_id: "S12 (3110140 중식 Q3/Q2 0.931)"}
+    carry_over: [SH01, SH02, SH05, SH06, SH07, SH08, SH10, SH11]
