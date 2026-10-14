@@ -208,7 +208,7 @@
 .m-foot { font-size: 14px; color: var(--pencil); }
 
 /* ---- chat ---- */
-.m-chat { position: fixed; inset: 72px max(20px, calc((100% - 1200px) / 2)) auto auto; z-index: 30; display: grid; grid-template-rows: auto minmax(0, 1fr) auto auto; inline-size: min(400px, calc(100vw - 32px)); block-size: min(560px, calc(100dvh - 92px)); border-radius: 22px; background: var(--bg); box-shadow: 0 8px 36px rgba(25, 31, 40, 0.2); animation: m-in 180ms ease-out both; overflow: hidden; }
+.m-chat { position: fixed; inset: 72px max(20px, calc((100% - 1200px) / 2)) auto auto; z-index: 30; display: grid; grid-template-rows: auto minmax(0, 1fr) auto auto; inline-size: min(540px, calc(100vw - 32px)); block-size: min(560px, calc(100dvh - 92px)); border-radius: 22px; background: var(--bg); box-shadow: 0 8px 36px rgba(25, 31, 40, 0.2); animation: m-in 180ms ease-out both; overflow: hidden; }
 .m-chat header { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; border-block-end: 1px solid var(--rule); }
 .m-chat h2 { font: 600 17px/1.4 var(--text); }
 .m-chatlog { display: grid; align-content: start; gap: 10px; padding: 16px; overflow-y: auto; }

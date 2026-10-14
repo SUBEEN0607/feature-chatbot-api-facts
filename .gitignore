@@ -15,3 +15,6 @@ data/cache/
 # Google Drive 시트와 폴더 아이디가 들어 있는 팀 내부 파일
 research/review/review_sheet.json
 *.log
+
+# 출처 API 전용 가상환경 (로컬)
+.cite-venv/
