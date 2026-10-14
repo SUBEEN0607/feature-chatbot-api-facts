@@ -32,6 +32,11 @@ SOURCES = {
         "publisher": "국가데이터처 (KOSIS)", "title": "생활물가지수 (시도별 품목, 2020=100)",
         "api": "KOSIS DT_1J22005", "url": "https://kosis.kr", "period": "2021년 1월~2026년 9월",
     },
+    "kma_asos_hourly": {
+        "publisher": "기상청", "title": "지상(종관, ASOS) 시간자료 조회서비스 (서울 108)",
+        "api": "data.go.kr 시간자료 (AsosHourlyInfoService)", "url": "https://www.data.go.kr",
+        "period": "2016~2025년",
+    },
     "kasi": {
         "publisher": "한국천문연구원", "title": "특일 정보 (공휴일)", "api": "data.go.kr 15012690",
         "url": "https://www.data.go.kr/data/15012690/openapi.do", "period": "2026~2027년",
@@ -141,6 +146,17 @@ def build() -> list[dict]:
                 "text": (f"{region}의 {item} 물가 지수는 2021년 평균 {a21:.1f}에서 2025년 평균 {a25:.1f}로 "
                          f"{(a25 / a21 - 1) * 100:+.1f}% 변했고, {ym}에는 {last:.1f}예요(2020년=100)."),
                 "sources": ["kosis_price"],
+            })
+    # 7) 월별 저녁(17~23시) 비 온 시간 비율 (기상청 시간자료)
+    hourly_path = MOCK / "asos_hourly.json"
+    if hourly_path.exists():
+        for m in json.loads(hourly_path.read_text(encoding="utf-8"))["months"]:
+            i = m["month"] - 1
+            facts.append({
+                "id": f"hourly_rain_{m['month']:02d}", "tags": [MONTH[i], "저녁", "비", "강수", "시간", "장사"],
+                "text": (f"{MONTH[i]} 저녁(17~23시)에는 시간의 {pct(m['evening_hour_rain_share'])}에 비가 왔어요. "
+                         f"하루 전체로는 {pct(m['all_hour_rain_share'])}예요(2016~2025년 평균)."),
+                "sources": ["kma_asos_hourly"],
             })
     return facts
 
